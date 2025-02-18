@@ -10,24 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_17_124147) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_095143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "clubs", force: :cascade do |t|
-    t.string "club_name", null: false
-    t.text "club_description"
+    t.bigint "student_id", null: false
+    t.string "club_name"
     t.string "club_logo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "student_id", null: false
     t.index ["student_id"], name: "index_clubs_on_student_id"
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
+    t.string "event_name"
+    t.text "event_desc"
     t.string "event_image"
+    t.string "event_venue"
+    t.time "event_time"
+    t.date "event_date"
+    t.datetime "event_deadline"
+    t.string "event_register_link", default: [], array: true
     t.bigint "club_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,6 +39,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_124147) do
   end
 
   create_table "registers", force: :cascade do |t|
+    t.string "name"
+    t.string "branch"
+    t.string "year"
     t.bigint "student_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
@@ -47,7 +54,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_124147) do
     t.string "name"
     t.string "email"
     t.string "password"
-    t.string "role", default: "student"
+    t.string "role", default: "user"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_students_on_email", unique: true
