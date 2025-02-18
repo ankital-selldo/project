@@ -4,10 +4,11 @@ class CreateStudents < ActiveRecord::Migration[8.0]
       t.string :name
       t.string :email
       t.string :password
-      t.string :role, default: "student"
+      t.string :role, default: "user"
 
       t.timestamps
     end
+
     add_index :students, :email, unique: true
   end
 end
