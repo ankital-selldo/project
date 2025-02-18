@@ -1,7 +1,7 @@
 class Register < ApplicationRecord
 
   belongs_to :student
-  
-  belongs_to :event
 
+  belongs_to :event
+  
 end
