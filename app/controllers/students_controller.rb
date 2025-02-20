@@ -1,6 +1,6 @@
   class StudentsController < ApplicationController
     before_action :authorized, except: [:welcome]
-
+    helper_method :logged_in?, :current_student  # Add this line
 
     # GET /users
     def index
@@ -13,7 +13,6 @@
   
     # GET /users/{username}
     def show
-
     end
   
     # POST /users
@@ -29,10 +28,10 @@
   
     # PUT /users/{username}
     def update
-      unless @student.update(student_params)
-        render json: { errors: @student.errors.full_messages },
-               status: :unprocessable_entity
-      end
+      # unless @student.update(student_params)
+      #   render json: { errors: @student.errors.full_messages },
+      #          status: :unprocessable_entity
+      # end
     end
   
     # DELETE /users/{username}

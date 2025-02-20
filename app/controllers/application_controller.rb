@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  
+  helper_method :logged_in?, :current_student  # Add this line
+
   skip_before_action :verify_authenticity_token
   before_action :authorized, except: [:welcome]
   
@@ -32,7 +33,17 @@ class ApplicationController < ActionController::Base
     !!current_student
   end
 
+
   def authorized
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    # binding.pry
+    unless logged_in?
+      respond_to do |format|
+        format.html { 
+          flash[:alert] = 'Please log in to access this page'
+          redirect_to new_login_path 
+        }
+        format.json { render json: { message: 'Please log in' }, status: :unauthorized }
+      end
+    end
   end
 end

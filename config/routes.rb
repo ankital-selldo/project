@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'auth#new_signup', as: :new_signup
   get '/login', to: 'auth#new_login', as: :new_login
+  delete '/logout', to: 'auth#logout', as: :logout
   
   get '/events', to: 'events#index'
   get '/clubs', to: 'clubs#index'

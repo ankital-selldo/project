@@ -1,26 +1,33 @@
+<!-- app/views/students/welcome.html.erb -->
 <div class="container mt-5">
   <div class="text-center">
     <h1 class="display-4">Welcome to Socials!</h1>
-    <p class="lead">You're just a few steps away from joining the community!</p>
-    <hr class="my-4">
-    <p>Sign up or log in to access all the exciting features.</p>
-
-    <div class="row justify-content-center mt-4">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Get Started</h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <%= link_to "Sign Up", new_signup_path, class: "btn btn-primary btn-block" %>
-              </li>
-              <li class="list-group-item">
-                <%= link_to "Log In", new_login_path, class: "btn btn-secondary btn-block" %>
-              </li>
-            </ul>
+    
+    <% if !current_student.nil? %>
+      <p class="lead">Welcome back, <%= current_student.name %>!</p>
+      <hr class="my-4">
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <%= link_to "View Students", students_path, class: "btn btn-info" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% else %>
+      <p class="lead">Sign up or log in to access all features.</p>
+      <hr class="my-4">
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <%= link_to "Sign Up", new_signup_path, class: "btn btn-primary m-2" %>
+              <%= link_to "Log In", new_login_path, class: "btn btn-secondary m-2" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

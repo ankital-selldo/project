@@ -11,6 +11,9 @@ class AuthController < ApplicationController
   def welcome
   end
 
+  def logout
+  end
+
   def signup
 
     @student = Student.new(student_params)
@@ -25,8 +28,6 @@ class AuthController < ApplicationController
         secure: Rails.env.production?
       }
 
-
-      
       respond_to do |format|
         binding.pry
         format.html { redirect_to students_path, notice: 'Successfully signed up!' }
@@ -74,6 +75,15 @@ class AuthController < ApplicationController
       end
     end
   end
+
+  def logout
+    cookies.delete(:student_id)
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Successfully logged out!' }
+      format.json { head :no_content }
+    end
+  end
+  
 
   private
 
