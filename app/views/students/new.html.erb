@@ -1,0 +1,28 @@
+<h1>SIGNUP</h1>
+
+<%= form_with model: @student do |f| %>
+  <%= f.label :name, "Name" %> <br>
+  <%= f.text_field :name %> <br>
+  <br>
+
+  <%= f.label :email, "Email" %> <br>
+  <%= f.text_field :email %> <br>
+  <br>
+
+  <%= f.label :password, "Password" %> <br>
+  <%= f.password_field :password %> <br>  <%# Use password_field for security %>
+  <br>
+  <br>
+
+  <%= f.label :role, "Role" %> <br>  <%# Label for the select field %>
+  <%= f.select :role, options_for_select([["User", "user"], ["Admin", "admin"], ["Club Head", "club_head"]], "user") %> <br> <%# Select field %>
+  <br>
+  <br>
+
+
+  <%= f.submit "Signup" %>
+<% end %>
+
+<%= flash[:error] %>
+
+

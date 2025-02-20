@@ -1,0 +1,14 @@
+
+<h1>Login</h1>
+
+<%= form_with model: @student, url: login_path, local: true do |f| %>
+  <%= f.label :name, "Email" %> <br>
+  <%= f.text_field :email %> <br><br>
+
+  <%= f.label :password, "Password" %> <br>
+  <%= f.password_field :password %> <br><br>
+
+  <%= f.submit "Log In" %>
+<% end %>
+
+<%= flash[:error] %>
