@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
+  
   skip_before_action :verify_authenticity_token
-  before_action :authorized
+  before_action :authorized, except: [:welcome]
   
   private
   
@@ -24,10 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_student
-    if decoded_token
-      student_id = decoded_token[0]['student_id']
-      @current_student ||= Student.find_by(id: student_id)
-    end
+    @current_student ||= Student.find_by(id: cookies.signed[:student_id]) if cookies.signed[:student_id]
   end
 
   def logged_in?

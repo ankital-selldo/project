@@ -1,27 +1,29 @@
   class StudentsController < ApplicationController
+    before_action :authorized, except: [:welcome]
 
-    before_action :authorize_request, except: :create
-    # before_action :find_student, except: %i[create index]
-  
+
     # GET /users
     def index
       @students = Student.all
-      render json: @students, status: :ok
+    end
+
+    def new 
+      @student = Student.new
     end
   
     # GET /users/{username}
     def show
-      render json: @student, status: :ok
+
     end
   
     # POST /users
     def create
       @student = Student.new(student_params)
       if @student.save
-        render json: @student, status: :created
+        # render json: @student, status: :created
+        redirect_to students_path
       else
-        render json: { errors: @student.errors.full_messages },
-               status: :unprocessable_entity
+        render "new_signup"
       end
     end
   
@@ -39,7 +41,6 @@
     end
   
     private
-  
     def student_params
       params.permit(
         :name, :email, :password, :role

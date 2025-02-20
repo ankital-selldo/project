@@ -1,40 +1,83 @@
 class AuthController < ApplicationController
-  skip_before_action :authorized, only: [:signup, :login]
+  skip_before_action :authorized, only: [:signup, :login, :new_signup, :new_login]
+
+  def new_signup
+    @student = Student.new
+  end
+
+  def new_login
+  end
+
+  def welcome
+  end
 
   def signup
-    # Rails.logger.debug(params.inspect)
-    binding.pry
+
     @student = Student.new(student_params)
+    token = encode_token({ student_id: @student.id })
     
-    binding.pry
     if @student.save
-      token = encode_token({ student_id: @student.id })
-      render json: {
-        student: @student,
-        token: token
-      }, status: :created
+
+      cookies.signed[:student_id] = {
+        value: @student.id,
+        expires: 7.days.from_now,
+        httponly: true,
+        secure: Rails.env.production?
+      }
+
+
+      
+      respond_to do |format|
+        binding.pry
+        format.html { redirect_to students_path, notice: 'Successfully signed up!' }
+        format.json { render json: { student: @student }, status: :created }
+      end
     else
-      render json: { errors: @student.errors.full_messages }, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new_signup }
+        format.json { render json: { errors: @student.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
+
 
   def login
     @student = Student.find_by(email: params[:email])
 
     if @student && @student.authenticate(params[:password])
+      # Set both cookie and JWT token
+      cookies.signed[:student_id] = {
+        value: @student.id,
+        expires: 7.days.from_now,
+        httponly: true,
+        secure: Rails.env.production?
+      }
+      
       token = encode_token({ student_id: @student.id })
-      render json: {
-        student: @student,
-        token: token
-      }, status: :ok
+      
+      respond_to do |format|
+        format.html { redirect_to students_path, notice: 'Successfully logged in!' }
+        format.json { 
+          render json: {
+            student: @student,
+            token: token
+          }, status: :ok 
+        }
+      end
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      respond_to do |format|
+        format.html { 
+          flash.now[:alert] = 'Invalid email or password'
+          render :new_login 
+        }
+        format.json { render json: { error: 'Invalid email or password' }, status: :unauthorized }
+      end
     end
   end
 
   private
 
   def student_params
-    params.permit(:name, :email, :password, :role)
+    params.require(:student).permit(:name, :email, :password, :role)
   end
 end
