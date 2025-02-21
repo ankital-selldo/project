@@ -1,6 +1,6 @@
   class StudentsController < ApplicationController
     before_action :authorized, except: [:welcome]
-    helper_method :logged_in?, :current_student  # Add this line
+    # helper_method :logged_in?, :current_student  # Add this line
 
     # GET /users
     def index
