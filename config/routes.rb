@@ -16,8 +16,6 @@ Rails.application.routes.draw do
   get '/login', to: 'auth#new_login', as: :new_login
   delete '/logout', to: 'auth#logout', as: :logout
   
-  get '/events', to: 'events#index'
-  get '/clubs', to: 'clubs#index'
   get '/about', to: 'pages#about' 
   get '/contact', to: 'pages#contact'
 
@@ -25,4 +23,9 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#login'
 
   resources :students
+  resources :clubs
+  resources :events
+  resources :registers
+
+  match '*path', to: 'application#not_found', via: :all
 end

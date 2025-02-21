@@ -1,23 +1,26 @@
-<!-- app/views/students/welcome.html.erb -->
+
 <div class="container mt-5">
   <div class="text-center">
-    <h1 class="display-4">Welcome to Socials!</h1>
-    
+
     <% if !current_student.nil? %>
-      <p class="lead">Welcome back, <%= current_student.name %>!</p>
+      <h1 class="display-4">Welcome back!</h1>
+
+      <p class="lead">Hello, <%= current_student.name %>!</p>
       <hr class="my-4">
-      <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <%= link_to "View Students", students_path, class: "btn btn-info" %>
-            </div>
-          </div>
+
+      <h2> List events for which user has registered </h2>
+      
+      <% else %>
+      <div class="container mt-5">
+        <div class="jumbotron shadow-effect">
+          <h1 class="display-4">Welcome to Socials!</h1>
+          <p class="lead">Discover and manage exciting events hosted by various clubs in your community.</p>
+          <hr class="my-4">
+          <p>Socials provides a platform to connect with clubs, explore their events, and stay updated on the latest social activities. Whether you're looking to join a workshop, attend a social gathering, or participate in a competition, you'll find it all here.</p>
         </div>
       </div>
-    <% else %>
-      <p class="lead">Sign up or log in to access all features.</p>
-      <hr class="my-4">
+      
+      <!-- <hr class="my-4">
       <div class="row justify-content-center mt-4">
         <div class="col-md-8">
           <div class="card">
@@ -27,7 +30,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     <% end %>
   </div>
 </div>

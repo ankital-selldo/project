@@ -1,5 +1,6 @@
 class AuthController < ApplicationController
   skip_before_action :authorized, only: [:signup, :login, :new_signup, :new_login]
+  before_action :redirect_to_if_logged_in, only: [:login, :signup, :new_login, :new_signup]
 
   def new_signup
     @student = Student.new
@@ -57,7 +58,7 @@ class AuthController < ApplicationController
       token = encode_token({ student_id: @student.id })
       
       respond_to do |format|
-        format.html { redirect_to students_path, notice: 'Successfully logged in!' }
+        format.html { redirect_to root_path, notice: 'Successfully logged in!' }
         format.json { 
           render json: {
             student: @student,
@@ -90,4 +91,20 @@ class AuthController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :email, :password, :role)
   end
+
+  def redirect_to_if_logged_in
+
+    if logged_in?
+      respond_to do |format|
+        format.html {
+          flash[:notice] = "You are already logged in"
+          redirect_to students_path
+        }
+        format.json {
+          render json: {message: "Already logged in"}, status: :forbidden
+        }
+      end
+    end
+  end
+
 end

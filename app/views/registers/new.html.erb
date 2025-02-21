@@ -1,0 +1,44 @@
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark text-white shadow-lg">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Register for Event</h2>
+
+          <%= form_with(model: @register, url: registers_path, local: true) do |form| %>
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control bg-secondary text-white border-0" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :branch, class: "form-label" %>
+              <%= form.select :branch, options_for_select([['Computer', 'Computer'], ['IT', 'IT'], ['EnTC', 'EnTC']]), {}, { class: "form-select bg-secondary text-white border-0" } %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :year, class: "form-label" %>
+              <%= form.select :year, options_for_select([['FE', 'FE'], ['SE', 'SE'], ['TE', 'TE'], ['BE', 'BE']]), {}, { class: "form-select bg-secondary text-white border-0" } %>
+            </div>
+
+            <%= form.hidden_field :student_id, value: current_student.id %>
+            <%= form.hidden_field :event_id, value: params[:event_id] %>
+
+            <div class="d-grid">
+              <%= form.submit "Register", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-control:focus, .form-select:focus {
+    background-color: #495057;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+</style>

@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-primary">List of clubs</h1>
+  <div class="row">
+    <% @clubs.each do |club| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg border-light rounded">
+          <% if club.club_logo.present? %>
+            <img src="<%= club.club_logo %>" class="card-img-top" alt="<%= club.club_name %>" style="object-fit: cover; height: 200px;">
+          <% else %>
+            <div class="card-img-top bg-secondary text-white text-center d-flex justify-content-center align-items-center" style="height: 200px;">
+              <i class="fas fa-users fa-3x"></i>
+            </div>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title text-center text-uppercase font-weight-bold" style="color: #007bff;"><%= club.club_name %></h5>
+            <p class="card-text text-justify text-muted">
+              Join the <%= club.club_name %> club to explore exciting activities, meet new people, and be part of an amazing community.
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <%= link_to "Learn More", club_path(club), class: "btn btn-primary btn-sm" %>
+              <%= link_to "Edit", edit_club_path(club), class: "btn btn-warning btn-sm" %>
+              <%= link_to "Delete", club_path(club), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

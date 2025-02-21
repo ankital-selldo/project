@@ -1,12 +1,12 @@
 class Event < ApplicationRecord
 
-  # validates :event_name, :event_venue, :event_time, :event_date, :event_deadline, :event_register_link, :club_id, presence: true
+  validates :event_name, :event_venue, :event_time, :event_date, :event_deadline, :event_register_link, :club_id, presence: true
 
-  # validates :event_desc, length: { minimum: 10, message: "should have at least 10 characters" }
+  validates :event_desc, length: { minimum: 10, message: "should have at least 10 characters" }
 
-  # validates :event_image, allow_blank: true, format: { with: /\A.*\.(jpg|jpeg|png|gif)\z/i, message: "must be a valid image format (jpg, jpeg, png, gif)" }
+  validates :event_image, allow_blank: true, format: { with: /\A.*\.(jpg|jpeg|png|gif)\z/i, message: "must be a valid image format (jpg, jpeg, png, gif)" }
 
-  # validates :event_register_link, format: { with: URI::regexp(%w[http https]), message: "must be a valid URL" }
+  validates :event_register_link, format: { with: URI::regexp(%w[http https]), message: "must be a valid URL" }
 
   belongs_to :club
 

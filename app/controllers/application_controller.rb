@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
   before_action :authorized, except: [:welcome]
+
+  def not_found
+    # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+    redirect_to root_path
+  end
   
   private
   
@@ -35,11 +40,10 @@ class ApplicationController < ActionController::Base
 
 
   def authorized
-    # binding.pry
     unless logged_in?
       respond_to do |format|
         format.html { 
-          flash[:alert] = 'Please log in to access this page'
+          flash[:notice] = 'Please log in to access this page'
           redirect_to new_login_path 
         }
         format.json { render json: { message: 'Please log in' }, status: :unauthorized }
