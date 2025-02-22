@@ -1,36 +1,38 @@
 class RegistersController < ApplicationController
-
-  def new
-    @register = Register.new
-  end
+  before_action :set_event, only: [:new, :create]
 
   def welcome
   end
 
+  def new
+    @register = Register.new
+    @register.event = @event if @event
+  end
+
   def index
-  end
-
-  def show
-    @register = Register.find(params[:id])
-  end
-
-  def edit
+    @registers = current_student.registers.includes(:event)
   end
 
   def create
-    @register = Register.new(register_params)
+    @register = current_student.registers.build(register_params)
+    @register.student_id = current_student.id 
+    
     if @register.save
-      # redirect_to registers_path
-      render json: {register: @register, status: :created}
+      redirect_to root_path, notice: 'Successfully registered for the event!'
     else
-      # redirect_to new_register_path
-      render json: { errors: @student.errors.full_messages }, status: :unprocessable_entity
+      render :new, notice: 'Registration failed.'
     end
   end
 
   private
 
-  def register_params
-    params.permit(:name, :branch, :year)
+  def set_event
+    @event = Event.find(params[:event_id]) if params[:event_id]
   end
+
+  def register_params
+    params.require(:register).permit(:event_id, :name, :branch, :year)
+  end
+
+ 
 end

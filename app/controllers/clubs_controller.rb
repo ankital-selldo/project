@@ -1,9 +1,9 @@
 class ClubsController < ApplicationController
-
-  def new
+  
+  def welcome
   end
 
-  def welcome
+  def new
   end
 
   def index

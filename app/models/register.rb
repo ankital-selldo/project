@@ -7,8 +7,8 @@ class Register < ApplicationRecord
   validates :branch, presence: true
 
   # Validations for 'year' attribute (assuming it's a valid year like "1st", "2nd", "3rd", etc.)
-  validates :year, presence: true, format: { with: /\A\d{1,2}[a-z]{2}\z/i,
-  message: "should be in '1st', '2nd', '3rd', etc. format" }
+  validates :year, presence: true, inclusion: { in: ['FE', 'SE', 'TE', 'BE'],
+  message: "should be one of 'FE', 'SE', 'TE', 'BE'" }
 
   # Associations (already defined in the migration)
   belongs_to :student

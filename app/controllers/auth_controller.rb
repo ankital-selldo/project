@@ -30,7 +30,6 @@ class AuthController < ApplicationController
       }
 
       respond_to do |format|
-        binding.pry
         format.html { redirect_to students_path, notice: 'Successfully signed up!' }
         format.json { render json: { student: @student }, status: :created }
       end

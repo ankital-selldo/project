@@ -1,3 +1,4 @@
+<%# app/views/home/index.html.erb %>
 
 <div class="container mt-5">
   <div class="text-center">
@@ -8,29 +9,68 @@
       <p class="lead">Hello, <%= current_student.name %>!</p>
       <hr class="my-4">
 
-      <h2> List events for which user has registered </h2>
+      <div class="container mt-5">
+        <h1 class="text-center mb-4 text-primary">My Registered Events</h1>
+
+        <% if current_student.registers.any? %>
+          <div class="accordion" id="registeredEventsAccordion">
+            <% current_student.registers.each_with_index do |register, index| %>
+              <div class="accordion-item bg-dark text-white rounded mb-3 shadow-sm">
+                <h2 class="accordion-header" id="heading<%= index %>">
+                  <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+                    <%= register.event.event_name %>
+                  </button>
+                </h2>
+                <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#registeredEventsAccordion">
+                  <div class="accordion-body p-4">
+                    <% if register.event.event_image.present? %>
+                      <div class="text-center mb-3">
+                        <img src="<%= register.event.event_image %>" class="img-fluid rounded" alt="<%= register.event.event_name %>" style="max-height: 200px;">
+                      </div>
+                    <% else %>
+                      <div class="text-center mb-3 bg-secondary rounded p-4">
+                        <i class="fas fa-calendar-alt fa-3x"></i>
+                      </div>
+                    <% end %>
+                    <p class="text-muted"><%= register.event.event_desc %></p>
+                    <ul class="list-group list-group-flush bg-dark">
+                      <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= register.event.event_venue %></li>
+                      <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= register.event.event_date&.strftime('%Y-%m-%d') %></li>
+                      <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= register.event.event_time&.strftime('%I:%M %p') %></li>
+                    </ul>
+                    <div class="text-center mt-3">
+                      <%= link_to "View Event Details", event_path(register.event), class: "btn btn-primary btn-sm" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-center text-muted">You have not registered for any events yet.</p>
+        <% end %>
+      </div>
       
-      <% else %>
+    <% else %>
       <div class="container mt-5">
         <div class="jumbotron shadow-effect">
-          <h1 class="display-4">Welcome to Socials!</h1>
+          <h1 class="display-4">Socials</h1>
           <p class="lead">Discover and manage exciting events hosted by various clubs in your community.</p>
           <hr class="my-4">
           <p>Socials provides a platform to connect with clubs, explore their events, and stay updated on the latest social activities. Whether you're looking to join a workshop, attend a social gathering, or participate in a competition, you'll find it all here.</p>
         </div>
       </div>
       
-      <!-- <hr class="my-4">
-      <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <%= link_to "Sign Up", new_signup_path, class: "btn btn-primary m-2" %>
-              <%= link_to "Log In", new_login_path, class: "btn btn-secondary m-2" %>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    <% end %>
+      <% end %>
   </div>
 </div>
+
+<style>
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+  .accordion-button:not(.collapsed) {
+    background-color: #343a40;
+    color: white;
+  }
+</style>

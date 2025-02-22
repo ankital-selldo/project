@@ -1,5 +1,8 @@
 class EventsController < ApplicationController
 
+  def welcome
+  end
+
   def new
   end
 
@@ -8,8 +11,7 @@ class EventsController < ApplicationController
     
   end
 
-  def welcome
-  end
+  
 
   def show
   end

@@ -1,2 +1,53 @@
-<h3> INDEX PAGE </h3>
+<%# app/views/registers/index.html.erb %>
 
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-primary">My Registered Events</h1>
+
+  <% if @registers.any? %>
+    <div class="accordion" id="registeredEventsAccordion">
+      <% @registers.each_with_index do |register, index| %>
+        <div class="accordion-item bg-dark text-white rounded mb-3 shadow-sm">
+          <h2 class="accordion-header" id="heading<%= index %>">
+            <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+              <%= register.event.event_name %>
+            </button>
+          </h2>
+          <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#registeredEventsAccordion">
+            <div class="accordion-body p-4">
+              <% if register.event.event_image.present? %>
+                <div class="text-center mb-3">
+                  <img src="<%= register.event.event_image %>" class="img-fluid rounded" alt="<%= register.event.event_name %>" style="max-height: 200px;">
+                </div>
+              <% else %>
+                <div class="text-center mb-3 bg-secondary rounded p-4">
+                  <i class="fas fa-calendar-alt fa-3x"></i>
+                </div>
+              <% end %>
+              <p class="text-muted"><%= register.event.event_desc %></p>
+              <ul class="list-group list-group-flush bg-dark">
+                <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= register.event.event_venue %></li>
+                <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= register.event.event_date&.strftime('%Y-%m-%d') %></li>
+                <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= register.event.event_time&.strftime('%I:%M %p') %></li>
+              </ul>
+              <div class="text-center mt-3">
+                <%= link_to "View Event Details", event_path(register.event), class: "btn btn-primary btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">You have not registered for any events yet.</p>
+  <% end %>
+</div>
+
+<style>
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+  .accordion-button:not(.collapsed) {
+    background-color: #343a40;
+    color: white;
+  }
+</style>

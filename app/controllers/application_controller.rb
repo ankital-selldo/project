@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_student  # Add this line
 
   skip_before_action :verify_authenticity_token
-  before_action :authorized, except: [:welcome]
+  before_action :authorized, except: [:not_found]
 
   def not_found
     # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found

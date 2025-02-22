@@ -22,6 +22,7 @@ class Student < ApplicationRecord
   #Associations
   has_many :registers
 
+
   has_many :clubs
 
 end
