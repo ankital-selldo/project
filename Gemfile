@@ -26,6 +26,9 @@ gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 gem "carrierwave", "~> 3.0", ">= 3.0.4"
 
+# Gemfile
+gem 'pundit'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

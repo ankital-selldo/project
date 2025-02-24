@@ -30,7 +30,7 @@ class AuthController < ApplicationController
       }
 
       respond_to do |format|
-        format.html { redirect_to students_path, notice: 'Successfully signed up!' }
+        format.html { redirect_to root_path, notice: 'Successfully signed up!' }
         format.json { render json: { student: @student }, status: :created }
       end
     else

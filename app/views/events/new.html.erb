@@ -3,9 +3,9 @@
     <div class="col-md-8">
       <div class="card bg-dark text-white shadow-lg">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4">Edit Event</h2>
+          <h2 class="card-title text-center mb-4">Create New Event</h2>
 
-          <%= form_with(model: @event, url: event_path(@event), method: :patch, local: true) do |form| %>
+          <%= form_with(model: @event, url: events_path, local: true) do |form| %>
             <div class="mb-3">
               <%= form.label :event_name, class: "form-label" %>
               <%= form.text_field :event_name, class: "form-control bg-secondary text-white border-0" %>
@@ -46,10 +46,10 @@
               <%= form.datetime_field :event_deadline, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
-              
+            <%= form.hidden_field :club_id, value: @club.id %>
 
             <div class="d-grid">
-              <%= form.submit "Update Event", class: "btn btn-primary" %>
+              <%= form.submit "Create Event", class: "btn btn-primary" %>
             </div>
           <% end %>
         </div>

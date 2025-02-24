@@ -99,6 +99,11 @@
     <div class="container">
       <%= link_to " Home", root_path, class: "navbar-brand" %>
 
+      <% if logged_in? && is_role_club_head %>
+       <%= link_to "MY CLUB", root_path, class: "nav-link" %>
+      <% end %>
+
+
       <% if logged_in? %>
         <div class="navbar-nav ms-auto">
           <%= link_to "Events", events_path, class: "nav-link" %>
