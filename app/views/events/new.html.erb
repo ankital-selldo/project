@@ -5,6 +5,17 @@
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Create New Event</h2>
 
+          <% if @event.errors.any? %>
+            <div class="alert alert-danger">
+              <ul>
+                <% @event.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
           <%= form_with(model: @event, url: events_path, local: true) do |form| %>
             <div class="mb-3">
               <%= form.label :event_name, class: "form-label" %>
@@ -23,8 +34,9 @@
 
             <div class="mb-3">
               <%= form.label :event_register_link, class: "form-label" %>
-              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0", placeholder: "[ link1, link2, ...]" %>
             </div>
+
 
             <div class="mb-3">
               <%= form.label :event_venue, class: "form-label" %>
@@ -63,5 +75,9 @@
     background-color: #495057;
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .form-control::placeholder {
+    color: white; /* Make placeholder text white */
   }
 </style>

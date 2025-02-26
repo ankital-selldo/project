@@ -100,7 +100,7 @@
       <%= link_to " Home", root_path, class: "navbar-brand" %>
 
       <% if logged_in? && is_role_club_head %>
-       <%= link_to "MY CLUB", root_path, class: "nav-link" %>
+       <%= link_to "MY CLUB", my_club_path, class: "nav-link" %>
       <% end %>
 
 
@@ -108,8 +108,9 @@
         <div class="navbar-nav ms-auto">
           <%= link_to "Events", events_path, class: "nav-link" %>
           <%= link_to "Clubs", clubs_path, class: "nav-link" %>
-          <%= link_to "Contact", contact_path, class: "nav-link" %>
-          <%= link_to "About", about_path, class: "nav-link" %>
+          <% if is_role_club_head %>
+          <%= link_to "CL_"+current_student.name, root_path, class: "nav-link"%>
+          <% end %>
           <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-danger" %>
         </div>
       <% else %>

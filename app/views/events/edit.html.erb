@@ -3,7 +3,18 @@
     <div class="col-md-8">
       <div class="card bg-dark text-white shadow-lg">
         <div class="card-body">
+
           <h2 class="card-title text-center mb-4">Edit Event</h2>
+            <% if @event.errors.any? %>
+              <div class="alert" style="color: red; border: 1px solid red; padding: 10px; background-color: #f8d7da; border-radius: 5px;">
+                <ul>
+                  <% @event.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
 
           <%= form_with(model: @event, url: event_path(@event), method: :patch, local: true) do |form| %>
             <div class="mb-3">

@@ -1,4 +1,3 @@
-
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -20,24 +19,34 @@
 
           <ul class="list-group list-group-flush bg-dark">
             <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= @event.event_venue %></li>
-            <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= @event.event_date&.strftime('%Y-%m-%d') %></li>
+            <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= @event.event_date&.strftime('%d/%m/%Y') %></li>
             <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= @event.event_time&.strftime('%I:%M %p') %></li>
-            <li class="list-group-item bg-dark text-white"><strong>Deadline:</strong> <%= @event.event_deadline&.strftime('%Y-%m-%d %I:%M %p') %></li>
-            <li class="list-group-item bg-dark text-white"><strong>Register Link:</strong>
-              <% if @event.event_register_link.present? %>
-                <a href="<%= @event.event_register_link %>" target="_blank" class="text-primary">Register Here</a>
+            <li class="list-group-item bg-dark text-white"><strong>Deadline:</strong> <%= @event.event_deadline&.strftime('%d/%m/%Y %I:%M %p') %></li>
+            
+             <li class="list-group-item bg-dark text-white"><strong>Register Link:</strong>
+              <% if @event.event_register_link.present? && @event.event_register_link.any? %>
+                <ul>
+                  <% @event.event_register_link.each do |link| %>
+                    <li>
+                      <a href="<%= link %>" target="_blank" class="text-primary">Click Here</a>
+                    </li>
+                  <% end %>
+                </ul>
               <% else %>
                 <span class="text-muted">Not Available</span>
               <% end %>
-            </li>
+            </li> 
+
             <li class="list-group-item bg-dark text-white"><strong>Club:</strong> <%= @event.club.club_name %></li>
           </ul>
 
-          <div class="text-center mt-4">
-            <%= link_to "Back to Events", events_path, class: "btn btn-outline-light me-2" %>
+          <div class="text-center mt-4 d-flex justify-content-center">
             <% if policy(@event).edit? %>
-              <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary me-2" %>
+              <%= button_to "Edit Event", edit_event_path(@event), class: "btn btn-primary me-2", method: :get %>
             <% end %>
+            
+            <%= button_to "Back to Events", events_path, class: "btn btn-outline-light me-2", method: :get %>
+            
             <% if policy(@event).destroy? %>
               <%= button_to "Delete Event", event_path(@event), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
             <% end %>

@@ -7,11 +7,11 @@ class EventsController < ApplicationController
   def welcome
   end
 
-  def not_found
-  end
+  # def not_found
+  # end
 
   def index
-    @events = policy_scope(Event).includes(:club).order(event_date: :asc)
+    @events = policy_scope(Event).includes(:club).order(event_date: :asc, event_time: :asc)
     respond_to do |format|
       format.html
       format.json { render json: @events.as_json(include: :club) }
@@ -67,7 +67,7 @@ class EventsController < ApplicationController
       else
         binding.pry
 
-        format.html { flash.now[:alert] = 'Failed to update event.'; render :edit }
+        format.html { flash.now[:alert] = 'Failed to update event.'; render :edit, status: :unprocessable_entity }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
     end
@@ -89,7 +89,7 @@ class EventsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
       format.html { flash[:notice] = 'Event not found.'; redirect_to events_path }
-      format.json { render json: { error: 'Event not found' }, status: :not_found }
+      format.json { render json: { error: 'Event not found' }, status: :unauthorized }
     end
   end
 

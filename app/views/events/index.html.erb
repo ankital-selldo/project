@@ -1,9 +1,14 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4 text-primary">List of Events</h1>
+
+  <% if is_role_club_head %>
+  <%= link_to "Create", new_event_path, class: "btn btn-outline-primary create-event-button" %>
+  <% end %>
+
   <div class="row">
     <% @events.each do |event| %>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg border-light rounded event-card-hover">
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card shadow-lg border-light rounded event-card-hover" style="height: 100%; display: flex; flex-direction: column;">
           <% if event.event_image.present? %>
             <img src="<%= event.event_image %>" class="card-img-top" alt="<%= event.event_name %>" style="object-fit: cover; height: 200px;">
           <% else %>
@@ -11,29 +16,32 @@
               <i class="fas fa-calendar-alt fa-3x"></i>
             </div> 
           <% end %>
-          <div class="card-body">
+          <div class="card-body" style="flex-grow: 1; display: flex; flex-direction: column;">
             <h5 class="card-title text-center text-uppercase font-weight-bold" style="color: #007bff;"><%= event.event_name %></h5>
-            <p class="card-text text-justify text-muted">
-              <% truncated_desc = truncate(event.event_desc, length: 100, separator: ' ') %>
-              <%= truncated_desc %>
-              <% if event.event_desc.length > 100 %>
-                <a href="#" data-bs-toggle="collapse" data-bs-target="#desc<%= event.id %>" aria-expanded="false" aria-controls="desc<%= event.id %>">
-                  Read More
-                </a>
-                <div class="collapse" id="desc<%= event.id %>">
-                  <%= event.event_desc.gsub(truncated_desc, '') %>
-                </div>
-              <% end %>
-            </p>
+            <% truncated_desc = truncate(event.event_desc, length: 50, separator: ' ') %>
+            <% if event.event_desc.length > 50 %>
+              <!-- Scrollable description -->
+              <div class="scrollable-description" id="desc<%= event.id %>">
+                <%= event.event_desc.gsub(truncated_desc, '') %>
+              </div>
+            <% end %>
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><strong>Venue:</strong> <%= event.event_venue %></li>
-              <li class="list-group-item"><strong>Date:</strong> <%= event.event_date&.strftime('%Y-%m-%d') %></li>
+            <li class="list-group-item"><strong>Date:</strong> <%= event.event_date&.strftime('%d-%m-%Y') %></li>
+
               <li class="list-group-item"><strong>Time:</strong> <%= event.event_time&.strftime('%I:%M %p') %></li>
             </ul>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <%= link_to "Register", new_register_path(event_id: event.id), class: "btn btn-primary btn-sm" %>
+          </div>
+          <!-- Flex container for buttons, pushed to the bottom -->
+          <div class="d-flex justify-content-between align-items-end p-3">
+            <%= link_to "Register", new_register_path(event_id: event.id), class: "btn btn-primary btn-sm" %>
+
+
+            <%= link_to "Show event", event_path(event), class: "btn btn-primary btn-sm" %>
+
+            <% if policy(event).update? && (current_student.role == 'admin' or current_student.role == 'club_head') %>
               <%= link_to "Manage Event", event_path(event), class: "btn btn-primary btn-sm" %>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
@@ -47,5 +55,30 @@
   }
   .event-card-hover:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .scrollable-description {
+    max-height: 130px;   /* Set a fixed height */
+    overflow-y: auto;    /* Enable vertical scrolling */
+    padding-right: 10px; /* Ensure there's space for the scrollbar */
+    margin-top: 10px;    /* Add some margin for better spacing */
+  }
+
+  /* Ensure the card body takes up all space in the card, pushing the buttons to the bottom */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .d-flex.justify-content-between {
+    margin-top: auto; /* This ensures the buttons are pushed to the bottom */
+  }
+
+   .create-event-button {
+    position: absolute;
+    top: 110px;
+    right: 10px;
+    
   }
 </style>
