@@ -34,7 +34,7 @@
 
             <div class="mb-3">
               <%= form.label :event_register_link, class: "form-label" %>
-              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0", placeholder: "[ link1, link2, ...]" %>
+              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0", placeholder: "Give your link in this format : [ link ]" %>
             </div>
 
 
@@ -79,5 +79,6 @@
 
   .form-control::placeholder {
     color: white; /* Make placeholder text white */
+    font-style: italic;
   }
 </style>

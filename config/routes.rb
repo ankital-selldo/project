@@ -29,5 +29,5 @@ Rails.application.routes.draw do
   resources :events
   resources :registers
 
-  # match '*path', to: 'application#not_found', via: :all
+  match '*path', to: 'application#not_found', via: :all
 end

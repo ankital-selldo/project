@@ -26,10 +26,10 @@ class ApplicationController < ActionController::Base
     current_student
   end
 
-  # def not_found
-  #   # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
-  #   redirect_to root_path
-  # end
+  def not_found
+    # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+    redirect_to root_path
+  end
   
   private
   
@@ -52,7 +52,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
   def current_student
     @current_student ||= Student.find_by(id: cookies.signed[:student_id]) if cookies.signed[:student_id]
     # binding.pry
