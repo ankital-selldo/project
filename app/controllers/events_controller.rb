@@ -29,7 +29,8 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     authorize @event
-    @club = current_student.clubs.first # Fetch the first club associated with the current student
+    @club = current_student.clubs.first 
+    binding.pry # Fetch the first club associated with the current student
   end
 
   def create
@@ -37,6 +38,7 @@ class EventsController < ApplicationController
     authorize @event
     @club = current_student.clubs.first # Fetch the club again in create action
 
+    binding.pry
     respond_to do |format|
       if @event.save
         binding.pry # Remove or keep for debugging

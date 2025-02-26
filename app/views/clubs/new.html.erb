@@ -1,1 +1,40 @@
-<h2> New OF CLUBS </h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">New Club</h2>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @club, local: true) do |form| %>
+
+            <% if @club.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+
+                <ul>
+                  <% @club.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :club_name, class: "form-label" %>
+              <%= form.text_field :club_name, class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :club_logo, class: "form-label" %>
+              <%= form.text_field :club_logo, class: "form-control" %>
+            </div>
+            <%= form.hidden_field :student_id, value: current_student.id %>
+
+            <div class="text-center">
+              <%= form.submit "Create Club", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

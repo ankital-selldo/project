@@ -1,1 +1,27 @@
-<h2> SHOW OF CLUBS </h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><%= @club.club_name %></h2>
+        </div>
+        <div class="card-body">
+          <% if @club.club_logo.present? %>
+            <div class="text-center mb-3">
+              <img src="<%= @club.club_logo %>" alt="Club Logo" class="club-logo">
+            </div>
+          <% end %>
+          <div class="club-details">
+            <p><strong>Club Name:</strong> <%= @club.club_name %></p>
+            
+           
+          </div>
+          <div class="text-center">
+            <%= link_to 'Edit', edit_club_path(@club), class: "btn btn-primary" %>
+            <%= link_to 'Back', clubs_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

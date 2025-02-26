@@ -74,10 +74,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def is_role_club_head
-    if logged_in?
-      @current_student.role == "club_head"
-    end 
-  end
 
+
+  def is_role_club_head
+    logged_in? && current_student.role == "club_head"
+  end
+  
+  def is_role_admin
+    logged_in? && current_student.role == "admin"
+  end
+  
+  def is_role_user
+    logged_in? && current_student.role == "user"
+  end
 end
