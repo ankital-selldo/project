@@ -17,7 +17,9 @@
            
           </div>
           <div class="text-center">
+          <% if policy(@club).edit? %>
             <%= link_to 'Edit', edit_club_path(@club), class: "btn btn-primary" %>
+            <% end %>
             <%= link_to 'Back', clubs_path, class: "btn btn-secondary" %>
           </div>
         </div>

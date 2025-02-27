@@ -9,6 +9,8 @@ class ClubsController < ApplicationController
   end
 
   def my_club
+    authorize Club
+    @clubs = policy_scope(Club)
     render :my_club
   end
 
@@ -19,21 +21,26 @@ class ClubsController < ApplicationController
 
   # GET /clubs/1
   def show
+    authorize @club
   end
 
   # GET /clubs/new
   def new
     @club = Club.new
+    authorize @club
   end
 
   # GET /clubs/1/edit
   def edit
+    authorize @club
+
   end
 
   # POST /clubs
   def create
     @club = Club.new(club_params)
     @club.student_id = current_student.id
+    authorize @club
     binding.pry
 
     if @club.save
@@ -49,6 +56,8 @@ class ClubsController < ApplicationController
 
   # PATCH/PUT /clubs/1
   def update
+    authorize @club
+
     if @club.update(club_params)
       redirect_to @club, notice: 'Club was successfully updated.'
     else
@@ -58,6 +67,8 @@ class ClubsController < ApplicationController
 
   # DELETE /clubs/1
   def destroy
+    authorize @club
+
     @club.destroy
     redirect_to clubs_url, notice: 'Club was successfully deleted.'
   end
@@ -80,7 +91,7 @@ class ClubsController < ApplicationController
 
     # Ensure only club_head role can create/edit/delete clubs
     # def authorize_club_head
-    #   unless current_user.role == 'club_head'
+    #   unless current_student.role == 'club_head'
     #     redirect_to clubs_path, alert: 'Only club heads can perform this action.'
     #   end
     # end
