@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :logged_in?, :current_student, :is_role_club_head  # Add this line
+  helper_method :logged_in?, :current_student, :is_role_club_head, :is_role_admin, :is_role_user  # Add this line
 
   skip_before_action :verify_authenticity_token
   before_action :authorized, except: [:welcome]

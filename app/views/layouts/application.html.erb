@@ -108,8 +108,9 @@
         <div class="navbar-nav ms-auto">
           <%= link_to "Events", events_path, class: "nav-link" %>
           <%= link_to "Clubs", clubs_path, class: "nav-link" %>
+          <% if is_role_user %>
           <%= link_to "Not a user?", role_upgrade_path, class: "nav-link" %>
-
+          <% end %>
           <% if is_role_club_head %>
           <%= link_to "CL_"+current_student.name, root_path, class: "nav-link"%>
           <% end %>

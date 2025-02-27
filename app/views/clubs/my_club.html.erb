@@ -19,9 +19,8 @@
 
             <ul class="list-group list-group-flush bg-dark">
               <li class="list-group-item bg-dark text-white"><strong>Club Name:</strong> <%= club.club_name %></li>
-              <li class="list-group-item bg-dark text-white"><strong>Created By:</strong> <%= club.student.name %></li>
+              <li class="list-group-item bg-dark text-white"><strong>Club Head Name:</strong> <%= club.student.name %></li>
               <li class="list-group-item bg-dark text-white"><strong>Created At:</strong> <%= club.created_at.strftime('%Y-%m-%d %I:%M %p') %></li>
-              <li class="list-group-item bg-dark text-white"><strong>Updated At:</strong> <%= club.updated_at.strftime('%Y-%m-%d %I:%M %p') %></li>
             </ul>
 
             <div class="text-center mt-4">

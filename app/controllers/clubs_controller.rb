@@ -79,9 +79,9 @@ class ClubsController < ApplicationController
     end
 
     # Ensure only club_head role can create/edit/delete clubs
-    def authorize_club_head
-      unless current_user.role == 'club_head'
-        redirect_to clubs_path, alert: 'Only club heads can perform this action.'
-      end
-    end
+    # def authorize_club_head
+    #   unless current_user.role == 'club_head'
+    #     redirect_to clubs_path, alert: 'Only club heads can perform this action.'
+    #   end
+    # end
 end
