@@ -11,6 +11,9 @@ class Register < ApplicationRecord
   message: "should be one of 'FE', 'SE', 'TE', 'BE'" }
 
   # Associations (already defined in the migration)
+
+  #has_many :events
+
   belongs_to :student
   belongs_to :event
 

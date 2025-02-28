@@ -1,64 +1,77 @@
-
 <div class="container mt-5">
   <div class="text-center">
-
     <% if !current_student.nil? %>
-
       <% if is_role_club_head %>
-
         <h1 class="display-4">Welcome you are a CLUB HEAD!</h1>
-        <!-- <p class="lead">Hello, CL_<%= current_student.name %>!</p>-->
         <hr class="my-4">
-
       <% else %>
         <h1 class="display-4">Welcome back!</h1>
-        
-         <p class="lead">Hello, <%= current_student.name %>!</p> 
+        <p class="lead">Hello, <%= current_student.name %>!</p>
         <hr class="my-4">
       <% end %>
 
       <div class="container mt-5">
-        <h1 class="text-center mb-4 text-primary">My Registered Events</h1>
+        <h1 class="mb-4 text-primary">My Registered Events</h1>
 
+        
+        <div id="eventList">
         <% if current_student.registers.any? %>
-          <div class="accordion" id="registeredEventsAccordion">
-            <% current_student.registers.each_with_index do |register, index| %>
-              <div class="accordion-item bg-dark text-white rounded mb-3 shadow-sm">
-                <h2 class="accordion-header" id="heading<%= index %>">
-                  <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
-                    <%= register.event.event_name %>
-                  </button>
-                </h2>
-                <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#registeredEventsAccordion">
-                  <div class="accordion-body p-4">
-                    <% if register.event.event_image.present? %>
-                      <div class="text-center mb-3">
-                        <img src="<%= register.event.event_image %>" class="img-fluid rounded" alt="<%= register.event.event_name %>" style="max-height: 200px;">
+        <div class="mb-3">
+          <select id="eventFilter" class="form-select">
+            <option value="all">All Events</option>
+            <option value="upcoming">Upcoming Events</option>
+            <option value="ongoing">Ongoing Events</option>
+            <option value="previous">Previous Events</option>
+          </select>
+        </div>
+            <% current_student.registers.each do |register| %>
+              <% event_status = if register.event.event_date > Date.today
+                                  "upcoming"
+                                elsif register.event.event_date == Date.today
+                                  "ongoing"
+                                else
+                                  "previous"
+                                end %>
+              <div class="event-card <%= event_status %>">
+                <div class="accordion" id="registeredEventsAccordion">
+                  <div class="accordion-item bg-dark text-white rounded mb-3 shadow-sm">
+                    <h2 class="accordion-header" id="heading<%= register.id %>">
+                      <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= register.id %>" aria-expanded="false" aria-controls="collapse<%= register.id %>">
+                        <%= register.event.event_name %>
+                      </button>
+                    </h2>
+                    <div id="collapse<%= register.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= register.id %>" data-bs-parent="#registeredEventsAccordion">
+                      <div class="accordion-body p-4">
+                        <% if register.event.event_image.present? %>
+                          <div class="text-center mb-3">
+                            <img src="<%= register.event.event_image %>" class="img-fluid rounded" alt="<%= register.event.event_name %>" style="max-height: 200px;">
+                          </div>
+                        <% else %>
+                          <div class="text-center mb-3 bg-secondary rounded p-4">
+                            <i class="fas fa-calendar-alt fa-3x"></i>
+                          </div>
+                        <% end %>
+                        <p class="text-white bg-dark"><%= register.event.event_desc %></p>
+                        <ul class="list-group list-group-flush bg-dark">
+                          <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= register.event.event_venue %></li>
+                          <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= register.event.event_date&.strftime('%Y-%m-%d') %></li>
+                          <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= register.event.event_time&.strftime('%I:%M %p') %></li>
+                        </ul>
+                        <div class="text-center mt-3">
+                          <%= link_to "View Event Details", event_path(register.event), class: "btn btn-primary btn-sm" %>
+                        </div>
                       </div>
-                    <% else %>
-                      <div class="text-center mb-3 bg-secondary rounded p-4">
-                        <i class="fas fa-calendar-alt fa-3x"></i>
-                      </div>
-                    <% end %>
-                    <p class="text-white bg-dark"><%= register.event.event_desc %></p>
-                    <ul class="list-group list-group-flush bg-dark">
-                      <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= register.event.event_venue %></li>
-                      <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= register.event.event_date&.strftime('%Y-%m-%d') %></li>
-                      <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= register.event.event_time&.strftime('%I:%M %p') %></li>
-                    </ul>
-                    <div class="text-center mt-3">
-                      <%= link_to "View Event Details", event_path(register.event), class: "btn btn-primary btn-sm" %>
                     </div>
                   </div>
                 </div>
               </div>
             <% end %>
-          </div>
-        <% else %>
-          <p class="text-center text-primary">You have not registered for any events yet.</p>
-        <% end %>
+          <% else %>
+            <p class="text-center text-primary">You have not registered for any events yet.</p>
+          <% end %>
+        </div>
       </div>
-      
+
     <% else %>
       <div class="container mt-5">
         <div class="jumbotron shadow-effect">
@@ -68,8 +81,7 @@
           <p>Socials provides a platform to connect with clubs, explore their events, and stay updated on the latest social activities. Whether you're looking to join a workshop, attend a social gathering, or participate in a competition, you'll find it all here.</p>
         </div>
       </div>
-      
-      <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -81,4 +93,49 @@
     background-color: #343a40;
     color: white;
   }
+
+  #eventFilter {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #007bff;
+    color: #007bff;
+    background-color: white;
+  }
+
+  #eventFilter::-ms-expand {
+    border: none;
+    color: #007bff;
+  }
+
+  #eventFilter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23007bff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: 98%;
+    background-position-y: 50%;
+    padding-right: 2rem;
+  }
+
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterSelect = document.getElementById('eventFilter');
+    const eventCards = document.querySelectorAll('.event-card');
+
+    filterSelect.addEventListener('change', function() {
+      const selectedFilter = this.value;
+
+      eventCards.forEach(card => {
+        const cardStatus = card.classList.contains('upcoming') ? 'upcoming' : card.classList.contains('ongoing') ? 'ongoing' : 'previous';
+
+        if (selectedFilter === 'all' || selectedFilter === cardStatus) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

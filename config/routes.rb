@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/contact', to: 'pages#contact'
   get '/role_upgrade', to: 'students#role_upgrade', as: :role_upgrade
   post '/verify_role_code', to: 'students#verify_role_code', as: :verify_role_code
+  get '/events/:id/registrations', to: 'events#registrations', as: :event_registrations  
 
   post '/signup', to: 'auth#signup'
   post '/login', to: 'auth#login'

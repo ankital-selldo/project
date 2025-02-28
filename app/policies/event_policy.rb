@@ -28,6 +28,12 @@ class EventPolicy < ApplicationPolicy
     update?
   end
 
+  def registrations?
+    return true if user.role == "admin"
+    return true if user.role == "club_head" && user.clubs.pluck(:id).include?(record.club_id)
+    false
+  end
+
   class Scope < Scope
     def resolve
       scope.all

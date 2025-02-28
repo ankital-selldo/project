@@ -21,14 +21,14 @@
             <li class="list-group-item bg-dark text-white"><strong>Venue:</strong> <%= @event.event_venue %></li>
             <li class="list-group-item bg-dark text-white"><strong>Date:</strong> <%= @event.event_date&.strftime('%d/%m/%Y') %></li>
             <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= @event.event_time&.strftime('%I:%M %p') %></li>
-            <li class="list-group-item bg-dark text-white"><strong>Deadline:</strong> <%= @event.event_deadline&.strftime('%d/%m/%Y %I:%M %p') %></li>
+            <li class="list-group-item bg-dark text-white"><strong>Deadline:</strong> <%= @event.event_deadline&.strftime('%I:%M %p %d/%m/%Y ') %></li>
             
-             <li class="list-group-item bg-dark text-white"><strong>Register Link:</strong>
+             <li class="list-group-item bg-dark text-white"><strong>Reference Links:</strong>
               <% if @event.event_register_link.present? && @event.event_register_link.any? %>
                 <ul>
                   <% @event.event_register_link.each do |link| %>
                     <li>
-                      <a href="<%= link %>" target="_blank" class="text-primary">Click Here</a>
+                    <a href="<%= link %>" target="_blank" class="text-primary"><%= link %></a>
                     </li>
                   <% end %>
                 </ul>

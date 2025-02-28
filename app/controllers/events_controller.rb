@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :registrations]
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -28,6 +28,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.club_id = params[:club_id] if params[:club_id].present?
     authorize @event
     @club = current_student.clubs.first 
     binding.pry # Fetch the first club associated with the current student
@@ -37,6 +38,10 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     authorize @event
     @club = current_student.clubs.first # Fetch the club again in create action
+
+    if @event.club_id.blank? && current_student.role == "club_head" && current_student.clubs.any?
+      @event.club_id = current_student.clubs.first.id
+    end
 
     binding.pry
     respond_to do |format|
@@ -82,6 +87,20 @@ class EventsController < ApplicationController
       format.html { redirect_to events_path, notice: 'Event was successfully deleted.' }
       format.json { head :no_content }
     end
+  end
+
+  def registrations
+    if @event.nil?
+      flash[:alert] = "Event not found."
+      redirect_to my_club_path and return
+    end
+
+    binding.pry
+    
+    authorize @event
+    binding.pry
+
+    @registrations = @event.registers.includes(:student)
   end
 
   private

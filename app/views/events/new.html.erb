@@ -29,12 +29,12 @@
 
             <div class="mb-3">
               <%= form.label :event_image, class: "form-label" %>
-              <%= form.text_field :event_image, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.file_field :event_image, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">
               <%= form.label :event_register_link, class: "form-label" %>
-              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0", placeholder: "Give your link in this format : [ link ]" %>
+              <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0", placeholder: "Give your link in this format : [ link1, link2, ... ]" %>
             </div>
 
 

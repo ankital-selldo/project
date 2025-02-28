@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
 
+  mount_uploader :event_image, EventUploader
+
   validates :event_name, :event_venue, :event_time, :event_date, :event_deadline, :event_register_link, :club_id, presence: true
 
   validates :event_desc, length: { minimum: 10, message: "should have at least 10 characters" }
@@ -9,6 +11,10 @@ class Event < ApplicationRecord
   validates :event_register_link, format: { with: URI::regexp(%w[http https]), message: "must be a valid URL" }
 
   belongs_to :club
+
+  has_many :registers
+
+  #belongs_to :register
 
   validate :event_date_not_in_past
   validate :event_deadline_not_before_event_date
