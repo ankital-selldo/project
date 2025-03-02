@@ -46,7 +46,7 @@ class AuthController < ApplicationController
     @student = Student.find_by(email: params[:email])
 
     if @student && @student.authenticate(params[:password])
-      # Set both cookie and JWT token
+
       cookies.signed[:student_id] = {
         value: @student.id,
         expires: 7.days.from_now,

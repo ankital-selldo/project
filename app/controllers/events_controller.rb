@@ -22,7 +22,8 @@ class EventsController < ApplicationController
     authorize @event
     respond_to do |format|
       format.html
-      format.json { render json: @event.as_json(include: :club) }
+      # format.json { render json: @event.as_json(include: :club) }
+      format.any { head :not_found }
     end
   end
 
@@ -31,13 +32,13 @@ class EventsController < ApplicationController
     @event.club_id = params[:club_id] if params[:club_id].present?
     authorize @event
     @club = current_student.clubs.first 
-    binding.pry # Fetch the first club associated with the current student
+    binding.pry 
   end
 
   def create
     @event = Event.new(event_params)
     authorize @event
-    @club = current_student.clubs.first # Fetch the club again in create action
+    @club = current_student.clubs.first 
 
     if @event.club_id.blank? && current_student.role == "club_head" && current_student.clubs.any?
       @event.club_id = current_student.clubs.first.id
@@ -46,11 +47,11 @@ class EventsController < ApplicationController
     binding.pry
     respond_to do |format|
       if @event.save
-        binding.pry # Remove or keep for debugging
+        binding.pry 
         format.html { redirect_to event_path(@event), notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created }
       else
-        binding.pry # Remove or keep for debugging
+        binding.pry 
         format.html { flash.now[:alert] = 'Failed to create event.'; render :new }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
@@ -59,7 +60,7 @@ class EventsController < ApplicationController
 
   def edit
     authorize @event
-    @club = @event.club # Get the club directly from the event
+    @club = @event.club 
     binding.pry
   end
 

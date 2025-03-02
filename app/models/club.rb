@@ -8,6 +8,6 @@ class Club < ApplicationRecord
 
   belongs_to :student
 
-  has_many :events
+  has_many :events, dependent: :destroy
 
 end

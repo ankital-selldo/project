@@ -1,8 +1,7 @@
   class StudentsController < ApplicationController
     before_action :authorized, except: [:welcome]
-    # helper_method :logged_in?, :current_student  # Add this line
+    # helper_method :logged_in?, :current_student  
 
-    # GET /users
     def index
       @students = Student.all
     end
@@ -11,15 +10,12 @@
       @student = Student.new
     end
   
-    # GET /users/{username}
     def show
     end
   
-    # POST /users
     def create
       @student = Student.new(student_params)
       if @student.save
-        # render json: @student, status: :created
         redirect_to students_path
       else
         render "new_signup"
@@ -27,9 +23,7 @@
     end
 
 
-      # GET /not_a_user
       def role_upgrade
-        # This action renders the role upgrade form
         render :role_upgrade
       end
     
@@ -60,7 +54,6 @@
         end
       end
   
-    # PUT /users/{username}
     def update
       # unless @student.update(student_params)
       #   render json: { errors: @student.errors.full_messages },
@@ -68,7 +61,6 @@
       # end
     end
   
-    # DELETE /users/{username}
     def destroy
       @student.destroy
     end

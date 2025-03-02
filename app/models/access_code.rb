@@ -1,5 +1,5 @@
 class AccessCode
-  # Static codes stored in the class
+
   ADMIN_CODE = "ADMIN_SECRET_2025"
   CLUB_HEAD_CODE = "CLUB_HEAD_2025"
 

@@ -1,11 +1,10 @@
-# app/policies/event_policy.rb
 class EventPolicy < ApplicationPolicy
   def index?
-    true  # Everyone can view the events list
+    true  
   end
 
   def show?
-    true  # Everyone can view individual events
+    true  
   end
 
   def create?

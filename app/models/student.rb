@@ -2,7 +2,6 @@ class Student < ApplicationRecord
 
   has_secure_password
 
-  #Validations 
   validates :name, presence: true, length: {minimum: 3}, format: {
     with: /\A[^0-9]*\z/,  # Use \A and \z instead of ^ and $
     message: "cannot contain numbers"

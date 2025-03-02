@@ -12,7 +12,7 @@ class Event < ApplicationRecord
 
   belongs_to :club
 
-  has_many :registers
+  has_many :registers, dependent: :destroy
 
   #belongs_to :register
 
