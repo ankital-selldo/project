@@ -4,8 +4,6 @@ class Club < ApplicationRecord
 
   validates :club_name, presence: true
 
-  validates :club_logo, presence: true
-
   belongs_to :student
 
   has_many :events, dependent: :destroy

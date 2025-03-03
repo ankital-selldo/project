@@ -34,14 +34,11 @@ class ClubsController < ApplicationController
     @club = Club.new(club_params)
     @club.student_id = current_student.id
     authorize @club
-    binding.pry
 
     if @club.save
-    binding.pry
 
       redirect_to @club, notice: 'Club was successfully created.'
     else
-    binding.pry
 
       render :new
     end

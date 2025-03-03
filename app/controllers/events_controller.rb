@@ -32,7 +32,6 @@ class EventsController < ApplicationController
     @event.club_id = params[:club_id] if params[:club_id].present?
     authorize @event
     @club = current_student.clubs.first 
-    binding.pry 
   end
 
   def create
@@ -44,14 +43,11 @@ class EventsController < ApplicationController
       @event.club_id = current_student.clubs.first.id
     end
 
-    binding.pry
     respond_to do |format|
       if @event.save
-        binding.pry 
         format.html { redirect_to event_path(@event), notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created }
       else
-        binding.pry 
         format.html { flash.now[:alert] = 'Failed to create event.'; render :new }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
@@ -61,19 +57,16 @@ class EventsController < ApplicationController
   def edit
     authorize @event
     @club = @event.club 
-    binding.pry
   end
 
   def update
     authorize @event
     respond_to do |format|
       if @event.update(event_params)
-    binding.pry
 
         format.html { redirect_to event_path(@event), notice: 'Event was successfully updated.' }
         format.json { render json: @event }
       else
-        binding.pry
 
         format.html { flash.now[:alert] = 'Failed to update event.'; render :edit, status: :unprocessable_entity }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
@@ -96,10 +89,8 @@ class EventsController < ApplicationController
       redirect_to my_club_path and return
     end
 
-    binding.pry
     
     authorize @event
-    binding.pry
 
     @registrations = @event.registers.includes(:student)
   end

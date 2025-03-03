@@ -8,18 +8,27 @@
           <% if @event %>
             <div class="mb-4">
               <h4 class="text-center"><%= @event.event_name %></h4>
-              <p class="text-muted text-center"><%= @event.event_date&.strftime('%Y-%m-%d') %> at <%= @event.event_time&.strftime('%I:%M %p') %></p>
+              <!-- <p class="text-white text-center"><%= @event.event_date&.strftime('%Y-%m-%d') %> at <%= @event.event_time&.strftime('%I:%M %p') %></p>-->
             </div>
           <% end %>
 
           <%= form_with(model: @register, local: true) do |form| %>
-            <!-- Remove the duplicate event_id fields and keep just one -->
             <%= form.hidden_field :event_id, value: @event&.id %>
+            <div class="mb-3">
+              <%= form.label :username, class: "form-label" %>
+              <%= form.text_field :username, class: "form-control bg-secondary text-white border-0" %>
+            </div>
 
             <div class="mb-3">
               <%= form.label :name, class: "form-label" %>
-              <%= form.text_field :name, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.text_field :name, value: current_student.name, class: "form-control bg-secondary text-white border-0", readonly: true %>
             </div>
+
+            <div class="mb-3">
+              <%= form.label :email, class: "form-label" %>
+              <%= form.email_field :email, value: current_student.email, class: "form-control bg-secondary text-white border-0", readonly: true %>
+            </div>
+
 
             <div class="mb-3">
               <%= form.label :branch, class: "form-label" %>

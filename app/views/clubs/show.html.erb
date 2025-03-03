@@ -13,7 +13,7 @@
           <% end %>
           <div class="club-details">
             <p><strong>Club Name:</strong> <%= @club.club_name %></p>
-            
+            <p><strong>Club Head Name:</strong> <%= Student.find(@club.student_id).name %></p>
            
           </div>
           <div class="text-center">

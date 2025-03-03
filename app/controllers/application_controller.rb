@@ -52,7 +52,6 @@ class ApplicationController < ActionController::Base
 
   def current_student
     @current_student ||= Student.find_by(id: cookies.signed[:student_id]) if cookies.signed[:student_id]
-    # binding.pry
   end
 
   def logged_in?
