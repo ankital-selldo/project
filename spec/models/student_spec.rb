@@ -1,15 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Student, type: :model do
-  let(:student) { build(:student) }
+  student = FactoryBot.build(:student4)
   
-  describe 'validations' do
+  context 'validations' do
     it 'is valid with valid attributes' do
-      expect(student.valid?).to eq(true)
+      # er = student.errors.full_messages
+      # er.each do |error|
+      #   puts error
+      # end
+      puts student.valid?
+      expect(student).to be_valid
     end
     
     it 'is not valid without a name' do
-      student.name = nil
+      student.email = "12345"
 
       # THis means that student should not be valid
       expect(student.valid?).to eq(false)

@@ -1,1 +1,10 @@
 To run in proper format : bundle exec rspec spec/models/student_spec.rb --format documentation -b
+
+
+sudo -u postgres psql
+
+switch db : psql -U ankita -d mydb_test
+
+ankita@ankita-Latitude-3450:~/workspace/events_app$ rspec spec/models/student_spec.rb 
+
+rails db:migrate RAILS_ENV=test

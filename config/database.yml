@@ -12,7 +12,7 @@ development:
 
 test:
   <<: *default
-  database: mydb
+  database: mydb_test
 
 production:
   <<: *default
