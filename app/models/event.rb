@@ -8,6 +8,7 @@ class Event < ApplicationRecord
 
   validates :event_image, allow_blank: true, format: { with: /\A.*\.(jpg|jpeg|png|gif)\z/i, message: "must be a valid image format (jpg, jpeg, png, gif)" }
 
+  validates :event_register_link, allow_blank: true, format: { with: URI::regexp(%w[http https]), message: "must be a valid URL" }
 
   belongs_to :club
 

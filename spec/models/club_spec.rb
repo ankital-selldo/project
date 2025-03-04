@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Club, type: :model do
   # let(:club) { FactoryBot.build(:club) }
-  club = FactoryBot.build(:club)
+  club = FactoryBot.build(:club2)
   
   context "Creating a club" do
 

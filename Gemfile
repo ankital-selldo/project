@@ -76,6 +76,8 @@ group :test do
   gem "selenium-webdriver"
 
   gem "faker"
+  gem 'database_cleaner-active_record'
+
 
 end
 
