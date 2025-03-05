@@ -1,9 +1,11 @@
 FactoryBot.define do
   factory :student, class: 'Student' do
-    name { "DUMMY" }  
-    email { "dummy2@gmail.com" }
-    password { "Dummy@123" }
-    role { "user" }
+    name { "Jia" }  
+    email { 'jia2@gmail.com' }
+    password { "Jia@123" }
+    password_confirmation { "Jia@123" }
+
+    role { "club_head" }
   end
 
   factory :student1, class: 'Student' do

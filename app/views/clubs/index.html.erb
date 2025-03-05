@@ -1,9 +1,10 @@
 <div class="container mt-5">
   <h1 class="mb-4 text-primary">Clubs</h1>
-  <div class="row">
+
+  <div class="row" id="clubList">
     <% @clubs.each do |club| %>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg border-light rounded">
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card shadow-lg border-light rounded club-card-hover" style="height: 100%; display: flex; flex-direction: column;">
           <% if club.club_logo.present? %>
             <img src="<%= club.club_logo %>" class="card-img-top" alt="<%= club.club_name %>" style="object-fit: cover; height: 200px;">
           <% else %>
@@ -11,21 +12,87 @@
               <i class="fas fa-users fa-3x"></i>
             </div>
           <% end %>
-          <div class="card-body">
+
+          <div class="card-body" style="flex-grow: 1; display: flex; flex-direction: column;">
             <h5 class="card-title text-center text-uppercase font-weight-bold" style="color: #007bff;"><%= club.club_name %></h5>
             <p class="card-text text-justify text-muted">
               Join the <%= club.club_name %> club to explore exciting activities, meet new people, and be part of an amazing community.
             </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <%= link_to "Learn More", club_path(club), class: "btn btn-primary btn-sm" %>
+          </div>
 
-              <% if policy(club).edit? %>
+          <div class="d-flex justify-content-between align-items-end p-3">
+            <%= link_to "Learn More", club_path(club), class: "btn btn-primary btn-sm" %>
+
+            <% if policy(club).edit? %>
               <%= link_to "Delete", club_path(club), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
-              <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<style>
+  .club-card-hover {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .club-card-hover:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .d-flex.justify-content-between {
+    margin-top: auto;
+  }
+
+  .list-group-item {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .list-group-item:first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  .list-group-item:last-child {
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+
+  .list-group-item:not(:first-child) {
+    border-top: none;
+  }
+
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterSelect = document.getElementById('clubFilter');
+    const clubCards = document.querySelectorAll('.club-card');
+
+    filterSelect.addEventListener('change', function() {
+      const selectedFilter = this.value;
+
+      clubCards.forEach(card => {
+        const cardStatus = card.classList.contains('upcoming') ? 'upcoming' : card.classList.contains('ongoing') ? 'ongoing' : 'previous';
+
+        if (selectedFilter === 'all' || selectedFilter === cardStatus) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

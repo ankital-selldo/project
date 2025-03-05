@@ -31,11 +31,13 @@ class AuthController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Successfully signed up!' }
+        
         format.json { render json: { student: @student }, status: :created }
       end
     else
+      
       respond_to do |format|
-        format.html { render :new_signup }
+        format.html { render :new_signup, status: :unprocessable_entity }
         format.json { render json: { errors: @student.errors.full_messages }, status: :unprocessable_entity }
       end
     end
@@ -43,15 +45,16 @@ class AuthController < ApplicationController
 
 
   def login
-    @student = Student.find_by(email: params[:email])
+    @student = Student.find_by(email: params[:student][:email])
 
-    if @student && @student.authenticate(params[:password])
+    if @student && @student.authenticate(params[:student][:password])
 
       cookies.signed[:student_id] = {
         value: @student.id,
         expires: 7.days.from_now,
         httponly: true,
-        secure: Rails.env.production?
+        secure: Rails.env.production?,
+        same_site: :lax
       }
       
       token = encode_token({ student_id: @student.id })
@@ -69,9 +72,10 @@ class AuthController < ApplicationController
       respond_to do |format|
         format.html { 
           flash.now[:alert] = 'Invalid email or password'
-          render :new_login 
+          render :new_login, status: :unauthorized
         }
         format.json { render json: { error: 'Invalid email or password' }, status: :unauthorized }
+        binding.pry
       end
     end
   end
