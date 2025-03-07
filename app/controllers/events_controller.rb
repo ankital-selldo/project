@@ -7,8 +7,8 @@ class EventsController < ApplicationController
   def welcome
   end
 
-  def not_found
-  end
+  # def not_found
+  # end
 
   def index
     @events = policy_scope(Event).includes(:club).order(event_date: :asc, event_time: :asc)

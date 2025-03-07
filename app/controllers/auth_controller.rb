@@ -45,10 +45,9 @@ class AuthController < ApplicationController
 
 
   def login
-    @student = Student.find_by(email: params[:student][:email])
-
-    if @student && @student.authenticate(params[:student][:password])
-
+    @student = Student.find_by(email: params[:email])
+    if @student && @student.authenticate(params[:password])
+      
       cookies.signed[:student_id] = {
         value: @student.id,
         expires: 7.days.from_now,
@@ -60,6 +59,7 @@ class AuthController < ApplicationController
       token = encode_token({ student_id: @student.id })
       
       respond_to do |format|
+        binding.pry
         format.html { redirect_to root_path, notice: 'Successfully logged in!' }
         format.json { 
           render json: {

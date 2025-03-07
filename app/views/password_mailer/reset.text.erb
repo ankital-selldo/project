@@ -1,0 +1,8 @@
+<h1>Password#reset</h1>
+
+HI <%= params[:student].email %>
+Someone requested for password reset, 
+
+If it was you, click the link below to reset your password
+<%= password_reset_edit_url(token: @token) %>
+

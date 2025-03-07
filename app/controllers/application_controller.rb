@@ -24,10 +24,10 @@ class ApplicationController < ActionController::Base
     current_student
   end
 
-  def not_found
-    # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
-    redirect_to root_path
-  end
+  # def not_found
+  #   # render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  #   redirect_to root_path
+  # end
   
   private
   

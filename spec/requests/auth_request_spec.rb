@@ -18,7 +18,7 @@ RSpec.describe AuthController, type: :request do
       it "returns http success status" do
         post '/signup', params: student_params
         
-        # expect(response.status).to eq(302)
+        expect(response.status).to eq(302)
         expect(response).to redirect_to(root_path)
 
       end

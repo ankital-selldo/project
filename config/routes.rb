@@ -22,10 +22,18 @@ Rails.application.routes.draw do
   post '/signup', to: 'auth#signup'
   post '/login', to: 'auth#login'
 
+  get '/password/reset', to: 'password_resets#new'
+  post '/password/reset', to: 'password_resets#create'
+
+  get '/password/reset/edit', to: 'password_resets#edit', as: :password_reset_edit
+  patch '/password/reset/edit', to: 'password_resets#update', as: :password_reset_update
+
+
+
   resources :students
   resources :clubs
   resources :events
   resources :registers
 
-  match '*path', to: 'application#not_found', via: :all
+  # match '*path', to: 'application#not_found', via: :all
 end
