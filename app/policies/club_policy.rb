@@ -20,8 +20,10 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def create?
-    user.role == "admin" 
+    user.role == "admin" || user.role == "club_head"
   end
+
+ 
 
   def update?
     return true if user.role == "admin"

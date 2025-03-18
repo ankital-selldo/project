@@ -5,11 +5,7 @@ RSpec.describe Student, type: :model do
   
   context 'validations' do
     it 'is valid with valid attributes' do
-      # er = student.errors.full_messages
-      # er.each do |error|
-      #   puts error
-      # end
-      puts student.valid?
+      
       expect(student).to be_valid
     end
     

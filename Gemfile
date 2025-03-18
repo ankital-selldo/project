@@ -77,6 +77,7 @@ group :test do
 
   gem 'rack-test', '~> 2.2'
 
+  gem 'simplecov', require: false
 end
 
 gem  "pry"

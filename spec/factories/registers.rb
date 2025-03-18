@@ -5,7 +5,7 @@ FactoryBot.define do
     branch { "Computer" }
     year { %i[FE SE TE BE].sample }
 
-    student { FactoryBot.create(:student) }
-    event { FactoryBot.create(:event) }
+    student { FactoryBot.build(:student) }
+    event { FactoryBot.build(:event) }
   end
 end

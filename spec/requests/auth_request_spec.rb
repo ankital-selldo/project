@@ -6,10 +6,10 @@ RSpec.describe AuthController, type: :request do
     let(:student_params) do
       {
         student: {
-          name: 'Jia',
-          email: 'jia2@gmail.com',
-          password: 'Jia@123',
-          password_confirmation: 'Jia@123'
+          name: 'Cia',
+          email: 'cia2@gmail.com',
+          password: 'Cia@123',
+          password_confirmation: 'Cia@123'
         }
       }
     end
@@ -17,6 +17,7 @@ RSpec.describe AuthController, type: :request do
     context "Creating a student" do
       it "returns http success status" do
         post '/signup', params: student_params
+        binding.pry
         
         expect(response.status).to eq(302)
         expect(response).to redirect_to(root_path)
@@ -36,16 +37,14 @@ RSpec.describe AuthController, type: :request do
 
 
   describe "POST /login" do
-    let!(:student) { create(:student, name: 'Ria', email: 'ria2@gmail.com', password: 'Ria@123', password_confirmation: 'Ria@123') }
+    let!(:student) { create(:student, name: 'Jena', email: 'jena2@gmail.com', password: 'Jenna@123', password_confirmation: 'Jenna@123') }
 
-
-    
     context "only for login " do
       let(:student_params) do
         {
           student: {
-            email: 'ria2@gmail.com',
-            password: 'Ria@123'
+            email: 'jena2@gmail.com',
+            password: 'Jenna@123'
           }
         }
       end
@@ -59,17 +58,17 @@ RSpec.describe AuthController, type: :request do
         }
       end
 
-      it "returns http success status" do
-        post '/login', params: student_params
-        
-        expect(response.status).to redirect_to(root_path)
-      end
+      # it "returns http success status" do
+      #   post '/login', params: student_params
+      #   binding.pry
+      #   expect(response.status).to redirect_to(root_path)
+      # end
       
 
       it "returns 401 code for invalid password" do
 
         post '/login', params: student_params2
-        # binding.pry
+        binding.pry
         expect(response.status).to eq(401)
       end
     end

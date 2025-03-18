@@ -12,7 +12,7 @@ FactoryBot.define do
 
     event_time { "09:30:00" } 
 
-    event_date { "2025-03-15" } 
+    event_date { "2025-03-19" } 
 
     event_deadline { "2025-03-20 17:00:00" }  
 

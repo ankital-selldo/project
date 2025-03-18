@@ -64,8 +64,12 @@ class ClubsController < ApplicationController
   private
     def set_club
       @club = Club.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      @club = nil 
+      rescue ActiveRecord::RecordNotFound
+        # @club = nil 
+        respond_to do |format|
+          format.html { flash[:notice] = 'Club not found.'; redirect_to clubs_path }
+          format.json { render json: { error: 'Club not found' }, status: :unauthorized }
+      end
     end
 
     def club_params
