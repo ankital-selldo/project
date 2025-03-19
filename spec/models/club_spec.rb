@@ -6,14 +6,17 @@ RSpec.describe Club, type: :model do
   
   context "Creating a club" do
 
+    it 'crates a club with valid equals true status' do
+
+      expect(club.valid?).to eq(true)
+    end
+
     it "when creating club with validations" do
       if club.club_logo.blank?
 
         puts "empty"
       end
-      puts club.club_name
-      puts club.club_logo
-      binding.pry
+      
       expect(club).to be_valid
 
     end

@@ -36,7 +36,7 @@ class ClubsController < ApplicationController
     authorize @club
 
     if @club.save
-
+      binding.pry
       redirect_to @club, notice: 'Club was successfully created.'
     else
 
@@ -50,7 +50,7 @@ class ClubsController < ApplicationController
     if @club.update(club_params)
       redirect_to @club, notice: 'Club was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unauthorized
     end
   end
 
@@ -58,7 +58,11 @@ class ClubsController < ApplicationController
     authorize @club
 
     @club.destroy
-    redirect_to clubs_url, notice: 'Club was successfully deleted.'
+    respond_to do |format|
+      format.html { redirect_to clubs_path, notice: 'Club was successfully deleted.' }
+      format.json { head :no_content }
+    end
+    # redirect_to clubs_url, notice: 'Club was successfully deleted.'
   end
 
   private

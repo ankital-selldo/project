@@ -48,7 +48,7 @@ class EventsController < ApplicationController
         format.html { redirect_to event_path(@event), notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created }
       else
-        format.html { flash.now[:alert] = 'Failed to create event.'; render :new }
+        format.html { redirect_to root_path, flash.now[:alert] = 'Failed to create event.'; }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
     end
@@ -67,6 +67,7 @@ class EventsController < ApplicationController
         format.html { redirect_to event_path(@event), notice: 'Event was successfully updated.' }
         format.json { render json: @event }
       else
+        binding.pry
 
         format.html { flash.now[:alert] = 'Failed to update event.'; render :edit, status: :unprocessable_entity }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
@@ -76,6 +77,7 @@ class EventsController < ApplicationController
 
   def destroy
     authorize @event
+    binding.pry
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_path, notice: 'Event was successfully deleted.' }

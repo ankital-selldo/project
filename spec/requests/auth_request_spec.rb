@@ -17,8 +17,6 @@ RSpec.describe AuthController, type: :request do
     context "Creating a student" do
       it "returns http success status" do
         post '/signup', params: student_params
-        binding.pry
-        
         expect(response.status).to eq(302)
         expect(response).to redirect_to(root_path)
 
@@ -37,38 +35,23 @@ RSpec.describe AuthController, type: :request do
 
 
   describe "POST /login" do
-    let!(:student) { create(:student, name: 'Jena', email: 'jena2@gmail.com', password: 'Jenna@123', password_confirmation: 'Jenna@123') }
-
     context "only for login " do
-      let(:student_params) do
-        {
-          student: {
-            email: 'jena2@gmail.com',
-            password: 'Jenna@123'
-          }
-        }
-      end
+      let(:student) { FactoryBot.build(:student1) }
+      
+      
 
-      let(:student_params2) do
-        {
-          student: {
-            email: '',
-            password: '123'
-          }
-        }
+      it "returns http success status" do
+        student_params = { email: student.email, password: student.password }
+        post "/login", params: student_params
+      
+        expect(response.status).to redirect_to(root_path)
       end
-
-      # it "returns http success status" do
-      #   post '/login', params: student_params
-      #   binding.pry
-      #   expect(response.status).to redirect_to(root_path)
-      # end
       
 
       it "returns 401 code for invalid password" do
+        student_params2 = { email: "", password: student.password }
 
         post '/login', params: student_params2
-        binding.pry
         expect(response.status).to eq(401)
       end
     end

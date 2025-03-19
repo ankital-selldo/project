@@ -32,9 +32,9 @@
                     </li>
                   <% end %>
                 </ul>
-              <% else %>
+            <% else %>
                 <span class="text-muted">Not Available</span>
-              <% end %>
+            <% end %>
             </li> 
 
             <li class="list-group-item bg-dark text-white"><strong>Club:</strong> <%= @event.club.club_name %></li>
@@ -49,7 +49,7 @@
             <%= button_to "Back", root_path, class: "btn btn-outline-light me-2", method: :get %>
 
             
-            <% if policy(@event).destroy? || current_student.role == 'admin' %>
+            <% if ( current_student.role == 'admin' || policy(@event).destroy?) %>
               <%= button_to "Delete Event", event_path(@event), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
             <% end %>
           </div>
