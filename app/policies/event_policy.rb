@@ -8,7 +8,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present? && user.role == 'club_head'
+    user.present? && (user.role == 'club_head')
   end
 
   def new?
@@ -16,7 +16,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && user.role == 'club_head' && record.club.student_id == user.id
+    user.present? && (user.role == 'club_head') && record.club.student_id == user.id
   end
 
   def edit?

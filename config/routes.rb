@@ -36,4 +36,6 @@ Rails.application.routes.draw do
   resources :registers
 
   # match '*path', to: 'application#not_found', via: :all
+  match '*unmatched', to: 'errors#not_found', via: :all
+
 end

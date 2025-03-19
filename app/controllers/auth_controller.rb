@@ -59,7 +59,6 @@ class AuthController < ApplicationController
       token = encode_token({ student_id: @student.id })
       
       respond_to do |format|
-        binding.pry
         format.html { redirect_to root_path, notice: 'Successfully logged in!' }
         format.json { 
           render json: {
@@ -75,7 +74,6 @@ class AuthController < ApplicationController
           render :new_login, status: :unauthorized
         }
         format.json { render json: { error: 'Invalid email or password' }, status: :unauthorized }
-        binding.pry
       end
     end
   end
