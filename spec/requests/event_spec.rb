@@ -3,15 +3,17 @@ require 'rails_helper'
 
 RSpec.describe Event, type: :request do
 
-  describe "For fetching events" do
-    let(:student) { FactoryBot.build(:student1) }
-    context "Checking validity for reading events" do
+  let(:student) { FactoryBot.build(:student1) }
 
-      before do
-        #login
-        post login_path, params: { email: student.email, password: student.password }
-        @student_cookie = response.cookies["student_id"]
-      end
+  before do
+    #login
+    post login_path, params: { email: student.email, password: student.password }
+
+    @student_cookie = response.cookies["student_id"]
+  end
+
+  describe "GET /events" do
+    context "Checking validity for reading events" do
 
       it "only for getting index of events" do
 
@@ -25,55 +27,70 @@ RSpec.describe Event, type: :request do
         expect(response).to have_http_status(200)
       end
     end
-
-    # let(:event) { FactoryBot.build(:event) }
-    # # let(:student) { FactoryBot.build(:student2, role: "user") }
-    # context "Creating a new event" do
-
-    #   before do
-    #     #login
-    #     post login_path, params: { email: student.email, password: student.password }
-    #     @student_cookie = response.cookies["student_id"]
-    #   end
-
-    #   it "with role as club_head" do
-
-    #     post "/events", params: { event: event }
-    #     expect(response.status).to redirect_to(root_path)
-
-    #   end
-
-    #   # it "with role as club_head" do
-    #   #   post "/events", params: { event: event }
-    #   #   expect(response.status).to eq(302)
-
-    #   # end
-    # end
+  
   end
 
+  describe "GET /events/:id" do
 
-  # describe "For editing events" do
+    context "GET /events/:id" do
+      let(:event) { FactoryBot.build(:event) }
 
-  #   let!(:student) { FactoryBot.build(:student1) }
-  #   let!(:event) { FactoryBot.build(:event) }
-  #   context "when having different roles" do
+      it "GET /events/:id with event existing" do
+
+        get "/events/#{event.id}", headers: { 'Cookie' => "student_id=#{@student_cookie}" }
+        expect(response.status).to eq(200) 
+      end
+
+
+      it "GET /events/:id with event non-existing" do
+
+        get "/events/1000", headers: { 'Cookie' => "student_id=#{@student_cookie}" }
+        expect(response).to have_http_status(404) 
+        expect(response.message).to include("Not Found") 
+
+      end
+    end
+
+  end
+
+  describe "POST /events" do
+    event_params = {
+      event: {
+        event_name: "New Test Event",
+        event_desc: "This is a test event",
+        event_venue: "Test Venue",
+        event_time: "12:00",
+        event_date: Date.today,
+        event_deadline: Date.today + 2.days,
+        club_id: Club.first.id
+      }
+    }
+
+    # let(:event) { FactoryBot.create(:event) }
+    context "Creating events " do
+
+      it "will create a event if role is club_head" do
+        student.role = "club_head"
+        post "/events", params: event_params 
+        expect(response).to have_http_status(302) #show_event_path
+
+      end
+
+      it "will create a event if role is user" do
+        student.role = "user"
+        post "/events", params: event_params 
+        expect(response).to redirect_to(root_path) #root_path for unauthorized action
+      end
+
+    end
+  end
+
+  describe "PUT /events/:id" do
+
+    context "Updating events" do
+
       
-  #     before do
-  #       #login
-  #       post login_path, params: { email: student.email, password: student.password }
-  #       @student_cookie = response.cookies["student_id"]
-  #     end
 
-  #     it "must be a valid/invaid request depending upon role for editing events" do
-  #       # let!(:event) { (:event, event_title: "Tech Conference") }
-  #       binding.pry
-  #       event.event_name = "Tech Conference"
-  #       post edit_event_path
-  #       # except(json[event_name]).to eq("10:30:00")
-  #       except(response.status).to eq(302)
-
-  #     end
-  #   end
-
-  # end
+    end
+  end
 end

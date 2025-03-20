@@ -45,10 +45,12 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to event_path(@event), notice: 'Event was successfully created.' }
+        format.html { redirect_to event_path(@event), alert: 'Event was successfully created.' }
         format.json { render json: @event, status: :created }
       else
-        format.html { redirect_to root_path, flash.now[:alert] = 'Failed to create event.'; }
+        format.html { flash.now[:alert] = 'Failed to create event.'
+        redirect_to root_path, status: :unauthorized
+       }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
     end
@@ -65,10 +67,8 @@ class EventsController < ApplicationController
       if @event.update(event_params)
 
         format.html { redirect_to event_path(@event), notice: 'Event was successfully updated.' }
-        format.json { render json: @event }
+        format.json { render json: @event, status: :ok }
       else
-        binding.pry
-
         format.html { flash.now[:alert] = 'Failed to update event.'; render :edit, status: :unprocessable_entity }
         format.json { render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity }
       end
@@ -77,7 +77,6 @@ class EventsController < ApplicationController
 
   def destroy
     authorize @event
-    binding.pry
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_path, notice: 'Event was successfully deleted.' }
@@ -103,7 +102,10 @@ class EventsController < ApplicationController
     @event = Event.includes(:club).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
-      format.html { flash[:notice] = 'Event not found.'; redirect_to events_path }
+      format.html { 
+        flash[:alert] = 'Event not found'
+        redirect_to events_path, status: :not_found
+        }
       format.json { render json: { error: 'Event not found' }, status: :unauthorized }
     end
   end

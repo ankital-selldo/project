@@ -57,4 +57,42 @@ RSpec.describe AuthController, type: :request do
     end
   end
 
+  describe "DELETE /logout" do
+    context "Only for logout" do
+      let(:student) { FactoryBot.build(:student1) }
+
+      before do
+        post login_path, params: { email: student.email, password: student.password }
+        @student_cookie = response.cookies["student_id"]
+      end
+
+      it "validate user to logout" do
+        delete "/logout"
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(root_path)
+
+      end
+
+      # it "validate user to logout" do
+      #   get "/students"
+      #   expect(response.status).to eq(302)
+      #   expect(response).to redirect_to(root_path)
+
+      # end
+    end
+  end
+
+  describe "GET /welcome when logged in" do
+    let(:student) { FactoryBot.build(:student1) }
+
+    before do
+      post "/login", params: { email: student.email, password: student.password }
+    end
+
+    it "redirects to students_path if already logged in" do
+      get "/"
+      expect(response.status).to eq(200)
+    end
+  end
+
 end

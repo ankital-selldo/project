@@ -21,8 +21,8 @@ class PasswordResetsController < ApplicationController
 
   def edit
     @student = Student.find_signed!(params[:token], purpose: "password_reset")
-  rescue ActiveSupport::MessageViewer::InvalidSignature
-    
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+
     redirect_to root_path, alert: "Your session has expired. Please try again."
   end
   
