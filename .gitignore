@@ -7,7 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-app/models/access_code.rb
 
 # Ignore all environment files.
 /.env*
