@@ -3,9 +3,9 @@ FactoryBot.define do
   factory :club, class: 'Club' do 
     # association :student, factory: :student
 
-    student { FactoryBot.build(:student) }
+    student { FactoryBot.create(:student) }
     club_name { "CODE GEEKS" }
-    # club_logo { Rails.root.join('images', 'ER_Events.png').open }
+    club_logo { Rails.root.join('images', 'ER_Events.png').open }
   end
 
   factory :club1, class: 'Club' do 

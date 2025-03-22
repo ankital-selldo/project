@@ -79,8 +79,9 @@ class EventsController < ApplicationController
     authorize @event
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_path, notice: 'Event was successfully deleted.' }
-      format.json { head :no_content }
+      format.html { redirect_to events_path, alert: 'Event was successfully deleted.' }
+      format.json { render json: { errors: @event.errors.full_messages }, status: :unauthorized }
+
     end
   end
 
@@ -92,7 +93,6 @@ class EventsController < ApplicationController
 
     
     authorize @event
-
     @registrations = @event.registers.includes(:student)
   end
 

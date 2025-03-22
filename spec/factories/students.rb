@@ -26,7 +26,7 @@ FactoryBot.define do
     name { "HARRY" }  
     email { "harry2@gmail.com" }
     password { "Harry@123" }
-    role { "user" }
+    role { "club_head" }
   end
 
   factory :student4, class: 'Student' do

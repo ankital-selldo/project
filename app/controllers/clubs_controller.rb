@@ -36,11 +36,10 @@ class ClubsController < ApplicationController
     authorize @club
 
     if @club.save
-      binding.pry
       redirect_to @club, notice: 'Club was successfully created.'
     else
 
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

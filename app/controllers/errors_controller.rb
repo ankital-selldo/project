@@ -3,6 +3,9 @@ class ErrorsController < ApplicationController
   end
 
   def not_found
-    render json: { error: 'Route not found' }, status: 404
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: "Page not found!" }  
+      format.json { render json: { error: "Route not found" }, status: 404 }  
+    end
   end
 end
