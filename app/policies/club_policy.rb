@@ -23,8 +23,6 @@ class ClubPolicy < ApplicationPolicy
     user.role == "admin" || user.role == "club_head"
   end
 
- 
-
   def update?
     return true if user.role == "admin"
     return true if user.role == "club_head" && record.student_id == user.id

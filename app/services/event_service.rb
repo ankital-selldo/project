@@ -16,6 +16,7 @@ class EventService
     @errors << 'Event not found'
     nil
   end
+
   
   def new_event(params = {})
     event = Event.new

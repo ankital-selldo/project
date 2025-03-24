@@ -142,6 +142,7 @@ class EventsController < ApplicationController
   
   def show
     authorize @event
+
     respond_to do |format|
       format.html
       format.any { head :not_found }

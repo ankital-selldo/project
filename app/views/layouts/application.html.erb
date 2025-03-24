@@ -99,7 +99,7 @@
     <div class="container">
       <%= link_to " Home", root_path, class: "navbar-brand" %>
 
-      <% if logged_in? && is_role_club_head %>
+      <% if logged_in? && is_role_club_head && is_role_admin %>
        <%= link_to "MY CLUB", my_club_path, class: "nav-link" %>
       <% end %>
 

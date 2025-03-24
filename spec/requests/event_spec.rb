@@ -78,7 +78,8 @@ RSpec.describe Event, type: :request do
 
       it "GET /events/:id with event non-existing" do
 
-        get "/events/1000", headers: { 'Cookie' => "student_id=#{@student_cookie}" }
+        get "/events/100054657", headers: { 'Cookie' => "student_id=#{@student_cookie}" }
+        binding.pry
         expect(response).to have_http_status(302) 
 
       end
@@ -158,7 +159,6 @@ RSpec.describe Event, type: :request do
         student.role = "club_head"
         delete "/events/#{event.id}", params: { event: event }
         expect(response.status).to eq(302)
-        binding.pry
         # expect(response).to redirect_to(events_path)
       end
 
