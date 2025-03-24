@@ -36,6 +36,6 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def my_club?
-    user.role == "club_head"
+    user.role == "club_head" || user.role == "admin"
   end
 end
