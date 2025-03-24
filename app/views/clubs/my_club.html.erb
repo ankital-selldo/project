@@ -58,7 +58,7 @@
             
           <% else %>
             <p class="text-center">You don't have a club yet.
-            <% if current_student.role == 'admin' %>
+            <% if current_student.role == 'admin' || current_student.role == 'club_head' %>
              <%= link_to 'Create Club', new_club_path, class: "btn btn-primary" %> 
              <% end %> 
             </p>
