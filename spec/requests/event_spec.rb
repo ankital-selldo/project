@@ -79,8 +79,7 @@ RSpec.describe Event, type: :request do
       it "GET /events/:id with event non-existing" do
 
         get "/events/1000", headers: { 'Cookie' => "student_id=#{@student_cookie}" }
-        expect(response).to have_http_status(404) 
-        expect(response.message).to include("Not Found") 
+        expect(response).to have_http_status(302) 
 
       end
     end

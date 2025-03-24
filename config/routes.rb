@@ -28,6 +28,11 @@ Rails.application.routes.draw do
   get '/password/reset/edit', to: 'password_resets#edit', as: :password_reset_edit
   patch '/password/reset/edit', to: 'password_resets#update', as: :password_reset_update
 
+  get '/registers/:id/edit', to: 'errors#not_found', via: :all
+
+  get '/students', to: 'errors#not_found', via: :all
+  get '/students/:id', to: 'errors#not_found', via: :all
+  get '/students/:id/edit', to: 'errors#not_found', via: :all
 
 
   resources :students
@@ -35,7 +40,6 @@ Rails.application.routes.draw do
   resources :events
   resources :registers
 
-  # match '*path', to: 'application#not_found', via: :all
   match '*unmatched', to: 'errors#not_found', via: :all
 
 end
