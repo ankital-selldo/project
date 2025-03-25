@@ -20,3 +20,6 @@ services:
       - key: RAILS_MASTER_KEY
         sync:false- key: WEB_CONCURRENCY
         value: 2
+
+mkdir -p /opt/render/project/src/public/uploads
+chmod -R 777 /opt/render/project/src/public/uploads
