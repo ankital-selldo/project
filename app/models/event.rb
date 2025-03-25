@@ -21,16 +21,17 @@ class Event < ApplicationRecord
 
   private
 
-  # Ensure event_deadline is not in the past or earlier than event_date
+  # event_deadline is not in the past or earlier than event_date
   def event_deadline_not_before_event_date
-    if event_deadline.to_date < Date.today
+
+    if event_deadline.present? && event_deadline.to_date < Date.today
       errors.add(:event_deadline, "cannot be in the past")
     elsif event_deadline.present? && event_date.present? && event_deadline.to_date < event_date
       errors.add(:event_deadline, "cannot be before event date")
     end
   end
 
-  # Ensure event_date is not in the past
+  # event_date is not in the past
   def event_date_not_in_past
     if event_date.present? && event_date <= Date.today
       errors.add(:event_date, "cannot be in the past")

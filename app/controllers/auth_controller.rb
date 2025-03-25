@@ -140,8 +140,9 @@ class AuthController < ApplicationController
       @student.errors.add(:base, result[:errors]) if result[:errors].present?
       
       respond_to do |format|
-        format.html { render :new_signup, status: :unprocessable_entity }
-        format.json { render json: { errors: result[:errors] }, status: :unprocessable_entity }
+        format.html { flash.now[:alert] = result[:errors].first 
+        render :new_signup, status: :unprocessable_entity }
+        format.json { render json: { errors: result[:errors].first }, status: :unprocessable_entity }
       end
     end
   end

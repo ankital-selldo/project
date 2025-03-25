@@ -157,6 +157,7 @@ class EventsController < ApplicationController
   end
   
   def create
+    binding.pry
     service = EventService.new(current_student)
     @event = Event.new(event_params)
 
@@ -164,13 +165,14 @@ class EventsController < ApplicationController
     result = service.create_event(event_params)
     @event = result[:event] || Event.new(event_params) 
     @club = service.get_student_first_club
+    @errors = result[:errors]
 
     respond_to do |format|
       if result[:success]
         format.html { redirect_to event_path(@event), notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created }
       else
-        format.html { flash.now[:alert] = 'Failed to create event.'; render :new }
+        format.html { flash.now[:alert] = 'Failed to create event. ' + result[:errors].first; render :new }
         format.json { render json: { errors: result[:errors] }, status: :unprocessable_entity }
       end
     end

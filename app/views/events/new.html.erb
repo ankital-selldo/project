@@ -5,7 +5,7 @@
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Create New Event</h2>
 
-          <% if @event.errors.any? %>
+           <% if @event.errors.any? %>
             <div class="alert alert-danger">
               <ul>
                 <% @event.errors.full_messages.each do |message| %>
@@ -14,7 +14,6 @@
               </ul>
             </div>
           <% end %>
-
 
           <%= form_with(model: @event, url: events_path, local: true) do |form| %>
             <div class="mb-3">
