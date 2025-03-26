@@ -14,7 +14,7 @@
           <%= form_with(url: login_path, local: true) do |form| %>
             <div class="mb-3">
               <%= form.label :email, class: "form-label" %>
-              <%= form.email_field :email, class: "form-control #{'is-invalid' if flash[:email_error]}" %>
+              <%= form.email_field :email, required: true, class: "form-control #{'is-invalid' if flash[:email_error]}" %>
               <% if flash[:email_error] %>
                 <div class="invalid-feedback">
                   <%= flash[:email_error] %>
@@ -24,7 +24,7 @@
 
             <div class="mb-3">
               <%= form.label :password, class: "form-label" %>
-              <%= form.password_field :password, class: "form-control #{'is-invalid' if flash[:password_error]}" %>
+              <%= form.password_field :password, required: true, class: "form-control #{'is-invalid' if flash[:password_error]}" %>
               <% if flash[:password_error] %>
               <div class="invalid-feedback">
               <%= flash[:password_error] %>
