@@ -13,13 +13,16 @@
           <% end %>
           <div class="club-details">
             <p><strong>Club Name:</strong> <%= @club.club_name %></p>
-            <p><strong>Club Head Name:</strong> <%= Student.find(@club.student_id).name %></p>
+            <!-- <p><strong>Club Head Name:</strong> <%= Student.find(@club.student_id).name %></p> -->
+            <% if current_student.role == "club_head" %>
+              <p><strong>Club Head Name:</strong> <%= current_student.name %></p>
+            <% end %>
            
           </div>
           <div class="text-center">
-          <% if policy(@club).edit? %>
+          <!-- <% if policy(@club).edit? %>
             <%= link_to 'Edit', edit_club_path(@club), class: "btn btn-primary" %>
-            <% end %>
+            <% end %> -->
             <%= link_to 'Back', clubs_path, class: "btn btn-secondary" %>
           </div>
         </div>
@@ -27,3 +30,15 @@
     </div>
   </div>
 </div>
+
+<style>
+  .club-logo {
+    width: 150px;  
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    border: 2px solid #ddd;
+    display: block;
+    margin: 0 auto; 
+  }
+</style>

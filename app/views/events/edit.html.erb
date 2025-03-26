@@ -19,12 +19,12 @@
           <%= form_with(model: @event, url: event_path(@event), method: :patch, local: true) do |form| %>
             <div class="mb-3">
               <%= form.label :event_name, class: "form-label" %>
-              <%= form.text_field :event_name, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.text_field :event_name, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">
               <%= form.label :event_desc, class: "form-label" %>
-              <%= form.text_area :event_desc, class: "form-control bg-secondary text-white border-0", rows: 4 %>
+              <%= form.text_area :event_desc, required: true, class: "form-control bg-secondary text-white border-0", rows: 4 %>
             </div>
 
             <div class="mb-3">
@@ -32,29 +32,29 @@
               <%= form.file_field :event_image, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <%= form.label :event_register_link, class: "form-label" %>
               <%= form.text_field :event_register_link, class: "form-control bg-secondary text-white border-0" %>
-            </div>
+            </div>-->
 
             <div class="mb-3">
               <%= form.label :event_venue, class: "form-label" %>
-              <%= form.text_field :event_venue, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.text_field :event_venue, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">
               <%= form.label :event_time, class: "form-label" %>
-              <%= form.time_field :event_time, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.time_field :event_time, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">
               <%= form.label :event_date, class: "form-label" %>
-              <%= form.date_field :event_date, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.date_field :event_date, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">
               <%= form.label :event_deadline, class: "form-label" %>
-              <%= form.datetime_field :event_deadline, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.datetime_field :event_deadline, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="d-grid">

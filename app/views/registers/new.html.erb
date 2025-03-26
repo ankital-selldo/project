@@ -16,7 +16,7 @@
             <%= form.hidden_field :event_id, value: @event&.id %>
             <div class="mb-3">
               <%= form.label :username, class: "form-label" %>
-              <%= form.text_field :username, class: "form-control bg-secondary text-white border-0" %>
+              <%= form.text_field :username, required: true, class: "form-control bg-secondary text-white border-0" %>
             </div>
 
             <div class="mb-3">

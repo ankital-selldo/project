@@ -23,7 +23,7 @@
             <li class="list-group-item bg-dark text-white"><strong>Time:</strong> <%= @event.event_time&.strftime('%I:%M %p') %></li>
             <li class="list-group-item bg-dark text-white"><strong>Deadline:</strong> <%= @event.event_deadline&.strftime('%I:%M %p %d/%m/%Y ') %></li>
             
-            <% if @event.event_register_link.present? && @event.event_register_link.any? %>
+            <!-- <% if @event.event_register_link.present? && @event.event_register_link.any? %>
             <li class="list-group-item bg-dark text-white"><strong>Reference Links:</strong>
                 <ul>
                   <% @event.event_register_link.each do |link| %>
@@ -34,7 +34,7 @@
                 </ul>
             <% else %>
                 <span class="text-muted">Not Available</span>
-            <% end %>
+            <% end %> -->
             </li> 
 
             <li class="list-group-item bg-dark text-white"><strong>Club:</strong> <%= @event.club.club_name %></li>

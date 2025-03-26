@@ -34,7 +34,6 @@ class RegistersController < ApplicationController
   def create
     @register = current_student.registers.build(register_params)
     
-
     if current_student.registers.exists?(event_id: @register.event_id)
       redirect_to registers_path, notice: 'You have already registered for this event.'
       return

@@ -4,7 +4,7 @@ class Event < ApplicationRecord
 
   validates :event_name, :event_venue, :event_time, :event_date, :event_deadline, :club_id, presence: true
 
-  validates :event_desc, length: { minimum: 10, message: "should have at least 10 characters" }
+  validates :event_desc, length: { minimum: 40, message: "should have at least 40 characters" }
 
   validates :event_image, allow_blank: true, format: { with: /\A.*\.(jpg|jpeg|png|gif)\z/i, message: "must be a valid image format (jpg, jpeg, png, gif)" }
 
@@ -33,7 +33,7 @@ class Event < ApplicationRecord
 
   # event_date is not in the past
   def event_date_not_in_past
-    if event_date.present? && event_date <= Date.today
+    if event_date.present? && event_date < Date.today
       errors.add(:event_date, "cannot be in the past")
     end
   end

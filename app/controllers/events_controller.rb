@@ -157,10 +157,9 @@ class EventsController < ApplicationController
   end
   
   def create
-    binding.pry
     service = EventService.new(current_student)
     @event = Event.new(event_params)
-
+    
     authorize @event 
     result = service.create_event(event_params)
     @event = result[:event] || Event.new(event_params) 

@@ -41,5 +41,4 @@ Rails.application.routes.draw do
   resources :registers
 
   match '*unmatched', to: 'errors#not_found', via: :all
-
 end

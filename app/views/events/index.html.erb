@@ -46,9 +46,7 @@
           </div>
 
           <div class="d-flex justify-content-between align-items-end p-3">
-            <% if event.event_register_link.size > 0 %>
               <%= link_to "Register", new_register_path(event_id: event.id), class: "btn btn-primary btn-sm" %>
-            <% end %>
 
             <% if !policy(event).update? %>
               <%= link_to "Show event", event_path(event), class: "btn btn-primary btn-sm" %>
