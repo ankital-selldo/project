@@ -23,7 +23,7 @@
 
             <div class="mb-3">
               <%= form.label :email, class: "form-label" %>
-              <%= form.text_field :email,required: true,  class: "form-control" %>
+              <%= form.text_field :email,required: true,  class: "form-control", placeholder: "someone@example.com" %>
             </div>
 
             <div class="mb-3">
@@ -50,3 +50,12 @@
     </div>
   </div>
 </div>
+
+
+<style>
+.form-control::placeholder {
+  font-style: italic;
+  color: #6c757d; 
+  opacity: 1; 
+}
+</style>

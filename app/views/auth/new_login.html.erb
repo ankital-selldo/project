@@ -14,7 +14,7 @@
           <%= form_with(url: login_path, local: true) do |form| %>
             <div class="mb-3">
               <%= form.label :email, class: "form-label" %>
-              <%= form.email_field :email, required: true, class: "form-control #{'is-invalid' if flash[:email_error]}" %>
+              <%= form.email_field :email, required: true, class: "form-control #{'is-invalid' if flash[:email_error]}" , placeholder: "someone@example.com"  %>
               <% if flash[:email_error] %>
                 <div class="invalid-feedback">
                   <%= flash[:email_error] %>
@@ -45,3 +45,15 @@
     </div>
   </div>
 </div>
+
+<style>
+
+
+.form-control::placeholder {
+  font-style: italic;
+  color: #6c757d;
+  opacity: 1; 
+}
+
+
+</style>
