@@ -13,10 +13,8 @@
           <% end %>
           <div class="club-details">
             <p><strong>Club Name:</strong> <%= @club.club_name %></p>
-            <!-- <p><strong>Club Head Name:</strong> <%= Student.find(@club.student_id).name %></p> -->
-            <% if current_student.role == "club_head" %>
-              <p><strong>Club Head Name:</strong> <%= current_student.name %></p>
-            <% end %>
+            <p><strong>Club Head Name:</strong> <%= Student.find(@club.student_id).name %></p>
+            
            
           </div>
           <div class="text-center">
