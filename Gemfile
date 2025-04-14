@@ -24,7 +24,7 @@ gem "bcrypt", "~> 3.1.7"
 
 gem 'jwt', '~> 1.5', '>= 1.5.4'
 
-gem "carrierwave", "~> 3.0", ">= 3.0.4"
+gem "carrierwave", "~> 3.1"
 
 # Gemfile
 gem 'pundit'
